@@ -20,7 +20,7 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     if (email.toUpperCase() === "ADMIN" && password.toUpperCase() === "ADMIN") {
-      navigation.navigate("Home");
+      navigation.navigate("Category Page");
     }
   };
 
