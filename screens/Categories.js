@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import CategoryButton from "./CategoryButton";
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from "@env";
+import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
   const [exercises, setExercises] = useState([]);
@@ -35,6 +36,7 @@ const Categories = () => {
         <CategoryButton text="Equipment" />
         <CategoryButton text="Random" />
         <CategoryButton text="My Saved Workouts" />
+        <CategoryButton text="Test" page="Test" />
       </View>
     </SafeAreaView>
   );
