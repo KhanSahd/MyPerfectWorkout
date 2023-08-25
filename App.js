@@ -9,6 +9,7 @@ import Categories from "./screens/Categories";
 import Test from "./screens/Test";
 import { Provider } from "react-redux";
 import store from "./store";
+import BodyParts from "./screens/BodyParts";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -36,6 +37,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Test"
             component={Test}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="BodyParts"
+            component={BodyParts}
           />
           {/* <Stack.Screen
             options={{ headerShown: false }}

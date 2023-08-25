@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ChevronLeftIcon } from "react-native-heroicons/solid";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "../features/counter/counterSlice";
+import Backbutton from "../components/Backbutton";
 
 const Test = () => {
   const navigation = useNavigation();
@@ -13,12 +14,7 @@ const Test = () => {
   return (
     <SafeAreaView className="flex-1 bg-[#FF5C00]">
       {/* Back Button */}
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        className="absolute top-14 left-5 "
-      >
-        <ChevronLeftIcon size={40} color="white" />
-      </TouchableOpacity>
+      <Backbutton />
       {/* End Back Button */}
 
       <Text className="text-center text-2xl mt-10 text-white font-bold">
