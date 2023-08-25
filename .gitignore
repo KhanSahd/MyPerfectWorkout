@@ -19,3 +19,5 @@ web-build/
 # env file
 .env
 
+*.pdf
+
