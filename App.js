@@ -24,7 +24,7 @@ export default function App() {
           component={LoginScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: true }}
           name="Category Page"
           component={Categories}
         />
