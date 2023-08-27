@@ -5,16 +5,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { ChevronLeftIcon } from "react-native-heroicons/solid";
-import { useSelector, useDispatch } from "react-redux";
-import { add } from "../features/exercises/exercisesSlice";
-import CategoryButton from "./CategoryButton";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import CategoryButton from "../components/CategoryButton";
 import Backbutton from "../components/Backbutton";
 
 const BodyParts = () => {
-  const navigation = useNavigation();
   const exercises = useSelector((state) => state.exercises.exercises);
   const [bodyParts, setBodyParts] = useState([
     ...new Set(exercises.map((exercise) => exercise.bodyPart)),
@@ -30,7 +26,11 @@ const BodyParts = () => {
       </Text>
       <View className="flex-1 flex-col justify-evenly items-center mt-5">
         {bodyParts.map((bodyPart) => (
-          <CategoryButton key={bodyPart} text={bodyPart} />
+          <CategoryButton
+            key={bodyPart}
+            text={bodyPart}
+            category={"body part"}
+          />
         ))}
       </View>
     </SafeAreaView>

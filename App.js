@@ -1,15 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
-import Categories from "./screens/Categories";
+import CategoriesScreen from "./screens/CategoriesScreen";
 import Test from "./screens/Test";
 import { Provider } from "react-redux";
 import store from "./store";
-import BodyParts from "./screens/BodyParts";
+import BodyPartsScreen from "./screens/BodyPartsScreen";
+import ExerciseScreen from "./screens/ExerciseScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -31,7 +29,7 @@ export default function App() {
           <Stack.Screen
             options={{ headerShown: false }}
             name="Category Page"
-            component={Categories}
+            component={CategoriesScreen}
           />
           <Stack.Screen
             options={{ headerShown: false }}
@@ -41,13 +39,13 @@ export default function App() {
           <Stack.Screen
             options={{ headerShown: false }}
             name="BodyParts"
-            component={BodyParts}
+            component={BodyPartsScreen}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             options={{ headerShown: false }}
-            name="Home"
-            component={HomeScreen}
-          /> */}
+            name="Exercise Screen"
+            component={ExerciseScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

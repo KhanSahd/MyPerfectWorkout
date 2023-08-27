@@ -1,15 +1,21 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { ChevronLeftIcon } from "react-native-heroicons/solid";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../features/counter/counterSlice";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
 import Backbutton from "../components/Backbutton";
+import Carousel from "react-native-reanimated-carousel";
+import { useSelector } from "react-redux";
 
 const Test = () => {
-  const navigation = useNavigation();
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+  const width = Dimensions.get("window").width;
+  const random = [...useSelector((state) => state.exercises.exercises)]
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 12);
 
   return (
     <SafeAreaView className="flex-1 bg-[#FF5C00]">
@@ -17,29 +23,36 @@ const Test = () => {
       <Backbutton />
       {/* End Back Button */}
 
-      <Text className="text-center text-2xl mt-10 text-white font-bold">
-        This is a test{" "}
-        <View className="bg-white items-center justify-center rounded-full">
-          <Text className="text-[#764abc] text-lg">Redux</Text>
-        </View>
-      </Text>
-      <Text className="text-center text-2xl mt-10 text-white font-bold">
-        {count}
-      </Text>
-
-      <View className="flex flex-row justify-center mt-10">
-        <TouchableOpacity
-          onPress={() => dispatch(increment())}
-          className="bg-white rounded-full px-5 py-2 mr-5"
-        >
-          <Text className="text-black font-bold">+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => dispatch(decrement())}
-          className="bg-white rounded-full px-5 py-2"
-        >
-          <Text className="text-black font-bold">-</Text>
-        </TouchableOpacity>
+      <View className="mt-10">
+        <Carousel
+          width={width}
+          data={random}
+          scrollAnimationDuration={1000}
+          renderItem={({ item }) => (
+            <View className="items-center h-full justify-center">
+              <Image
+                className="rounded-full"
+                source={{ uri: item ? item.gifUrl : "" }}
+                style={{
+                  width: width / 2 + 100,
+                  height: width / 2 + 100,
+                  resizeMode: "stretch",
+                }}
+              />
+              <View className="mt-6">
+                <Text className="text-white text-center text-xl font-bold">
+                  Name: {item.name}
+                </Text>
+                <Text className="text-white text-center text-xl font-bold">
+                  Target: {item.target}
+                </Text>
+                <Text className="text-white text-center text-xl font-bold">
+                  Equipment: {item.equipment}
+                </Text>
+              </View>
+            </View>
+          )}
+        />
       </View>
     </SafeAreaView>
   );

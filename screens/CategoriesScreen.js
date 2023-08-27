@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import CategoryButton from "./CategoryButton";
+import CategoryButton from "../components/CategoryButton";
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from "@env";
 import { useSelector, useDispatch } from "react-redux";
 import { add } from "../features/exercises/exercisesSlice";
