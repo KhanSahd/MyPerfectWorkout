@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import BodyPartsScreen from "./screens/BodyPartsScreen";
 import ExerciseScreen from "./screens/ExerciseScreen";
+import TargetMuscleScreen from "./screens/TargetMuscleScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -38,13 +39,18 @@ export default function App() {
           />
           <Stack.Screen
             options={{ headerShown: false }}
+            name="Exercise Screen"
+            component={ExerciseScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
             name="BodyParts"
             component={BodyPartsScreen}
           />
           <Stack.Screen
             options={{ headerShown: false }}
-            name="Exercise Screen"
-            component={ExerciseScreen}
+            name="Target Muscles"
+            component={TargetMuscleScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

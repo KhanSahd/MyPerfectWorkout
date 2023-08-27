@@ -34,7 +34,7 @@ const Categories = () => {
       </Text>
       <View className="flex-1 flex-col justify-evenly items-center mt-5">
         <CategoryButton text="Body Part" page="BodyParts" />
-        <CategoryButton text="Target Muscles" />
+        <CategoryButton text="Target Muscles" page="Target Muscles" />
         <CategoryButton text="Equipment" />
         <CategoryButton text="Random" />
         <CategoryButton text="My Saved Workouts" />
