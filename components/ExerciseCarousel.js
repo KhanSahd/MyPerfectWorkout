@@ -4,8 +4,11 @@ import { useSelector } from "react-redux";
 import Carousel from "react-native-reanimated-carousel";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-native-heroicons/solid";
 
-const ExerciseCarousel = ({ exercises }) => {
+const ExerciseCarousel = () => {
   const width = Dimensions.get("window").width;
+  const random = [...useSelector((state) => state.exercises.selectedWorkout)]
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 12);
   return (
     <View className="mt-10">
       <ArrowLeftIcon
@@ -15,7 +18,7 @@ const ExerciseCarousel = ({ exercises }) => {
       />
       <Carousel
         width={width}
-        data={useSelector((state) => state.exercises.selectedWorkout)}
+        data={random}
         scrollAnimationDuration={1000}
         renderItem={({ item }) => (
           <View className="items-center h-full justify-center">

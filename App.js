@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import CategoriesScreen from "./screens/CategoriesScreen";
-import Test from "./screens/Test";
 import { Provider } from "react-redux";
 import store from "./store";
 import BodyPartsScreen from "./screens/BodyPartsScreen";
@@ -32,11 +31,6 @@ export default function App() {
             options={{ headerShown: false }}
             name="Category Page"
             component={CategoriesScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Test"
-            component={Test}
           />
           <Stack.Screen
             options={{ headerShown: false }}
