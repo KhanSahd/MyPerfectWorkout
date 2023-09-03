@@ -20,7 +20,10 @@ const WelcomeScreen = () => {
             Login
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity className="px-11 py-3 text-lg rounded-full border-2 border-[#FF5C00] mr-10 mb-10">
+        <TouchableOpacity
+          className="px-11 py-3 text-lg rounded-full border-2 border-[#FF5C00] mr-10 mb-10"
+          onPress={() => navigation.navigate("Register")}
+        >
           <Text className="text-center text-[#FF5C00] text-lg font-bold">
             Register
           </Text>

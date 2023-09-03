@@ -16,14 +16,6 @@ export const exercisesSlice = createSlice({
     setSelectedWorkout(state, action) {
       state.selectedWorkout = action.payload;
     },
-
-    // Body Parts:
-    getByBody(state, action) {
-      bodypart = action.payload;
-      state.bodypart = state.exercises.filter(
-        (item) => item.bodyPart === action.payload
-      );
-    },
   },
 });
 

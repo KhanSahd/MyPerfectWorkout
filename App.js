@@ -9,6 +9,7 @@ import BodyPartsScreen from "./screens/BodyPartsScreen";
 import ExerciseScreen from "./screens/ExerciseScreen";
 import TargetMuscleScreen from "./screens/TargetMuscleScreen";
 import EquipmentScreen from "./screens/EquipmentScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -51,6 +52,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Equipment"
             component={EquipmentScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Register"
+            component={RegisterScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
