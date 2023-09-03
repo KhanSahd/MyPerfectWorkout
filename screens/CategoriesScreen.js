@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import CategoryButton from "../components/CategoryButton";
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from "@env";
 import { useSelector, useDispatch } from "react-redux";
-import { add } from "../features/exercises/exercisesSlice";
+import { add, fetchExercises } from "../features/exercises/exercisesSlice";
 import { logout, reset } from "../features/auth/authSlice";
 import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
-  // const [exercises, setExercises] = useState([]);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
+  const exercises = useSelector((state) => state.exercises.exercises);
 
   const onLogout = () => {
     dispatch(logout());
@@ -21,22 +21,8 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    dispatch(fetchExercises());
   }, []);
-
-  const fetchData = async () => {
-    const response = await fetch(
-      "https://exercisedb.p.rapidapi.com/exercises",
-      {
-        headers: {
-          "X-RapidAPI-Key": XRAPIDAPIKEY,
-          "X-RapidAPI-Host": XRAPIDAPIHOST,
-        },
-      }
-    );
-    const data = await response.json();
-    dispatch(add(data));
-  };
 
   return (
     <SafeAreaView className="flex-1 bg-[#FF5C00]">
