@@ -24,15 +24,6 @@ const initialState = {
 export const fetchExercises = createAsyncThunk(
   "exercises/fetchExercises",
   async () => {
-    // return await axios
-    //   .get("https://exercisedb.p.rapidapi.com/exercises", config)
-    //   .get((response) => {
-    //     if (response.status === 200) {
-    //       return response.data.json();
-    //     } else {
-    //       throw new Error("Unable to fetch exercises");
-    //     }
-    //   });
     const response = await fetch(
       "https://exercisedb.p.rapidapi.com/exercises",
       {
