@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -5,24 +6,25 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { login, reset } from "../features/auth/authSlice";
+import { register, reset } from "../features/auth/authSlice";
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   // Navigation and dispatch objects
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const apiLink = "http://localhost:8000/api/users/login";
+  const apiLink = "http://localhost:8000/api/users/";
 
   // Form data states
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const { user, isLoading, isError, isSuccess, errorMessage } = useSelector(
     (state) => state.auth
@@ -36,13 +38,18 @@ const LoginScreen = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, errorMessage, navigation, dispatch]);
 
-  const handleLogin = async () => {
-    const user = {
-      email: email,
-      password: password,
-    };
+  const onSubmit = (e) => {
+    if (password !== password2) {
+      alert("Passwords do not match");
+    } else {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+      };
 
-    dispatch(login(user));
+      dispatch(register(user));
+    }
   };
 
   return (
@@ -55,7 +62,9 @@ const LoginScreen = () => {
       </TouchableOpacity>
 
       <View className="space-y-20">
-        <Text className="text-4xl font-bold text-white text-center">Login</Text>
+        <Text className="text-4xl font-bold text-white text-center">
+          Register
+        </Text>
 
         {isError ? (
           <Text className="text-white text-center">{errorMessage}</Text>
@@ -65,10 +74,17 @@ const LoginScreen = () => {
 
         <View>
           <TextInput
+            onChangeText={(e) => setName(e)}
+            className="border-white text-white p-4 w-screen text-center text-2xl font-bold"
+            placeholder="name"
+            autoCapitalize="none"
+          />
+          <TextInput
             onChangeText={(e) => setEmail(e)}
             className="border-white text-white p-4 w-screen text-center text-2xl font-bold"
             placeholder="email"
             autoCapitalize="none"
+            secureTextEntry={false}
           />
           <TextInput
             onChangeText={(e) => setPassword(e)}
@@ -77,11 +93,18 @@ const LoginScreen = () => {
             secureTextEntry={true}
             autoCapitalize="none"
           />
+          <TextInput
+            onChangeText={(e) => setPassword2(e)}
+            placeholder="Confirm Password"
+            className="border-white text-white p-4 w-screen text-center text-2xl font-bold"
+            secureTextEntry={true}
+            autoCapitalize="none"
+          />
         </View>
       </View>
 
       <TouchableOpacity
-        onPress={() => handleLogin()}
+        onPress={() => onSubmit()}
         className="absolute bottom-14 right-5 bg-white rounded-full p-2"
       >
         <ChevronRightIcon size={40} color="#FF5C00" />
@@ -90,4 +113,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

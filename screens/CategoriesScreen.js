@@ -4,10 +4,21 @@ import CategoryButton from "../components/CategoryButton";
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from "@env";
 import { useSelector, useDispatch } from "react-redux";
 import { add } from "../features/exercises/exercisesSlice";
+import { logout, reset } from "../features/auth/authSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
   // const [exercises, setExercises] = useState([]);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigation.navigate("Welcome");
+  };
 
   useEffect(() => {
     fetchData();
@@ -29,6 +40,12 @@ const Categories = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-[#FF5C00]">
+      <TouchableOpacity
+        onPress={() => onLogout()}
+        className="absolute top-14 right-5"
+      >
+        <Text className="text-white text-xl">Logout</Text>
+      </TouchableOpacity>
       <Text className="text-center text-2xl mt-10 text-white font-bold">
         Pick a category to find a workout
       </Text>
