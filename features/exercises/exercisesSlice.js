@@ -1,4 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+// Async Thunk
+export const fetchExercises = createAsyncThunk(
+  "exercises/fetchExercises",
+  async () => {
+    try {
+      const response = await fetch(
+        "https://exercisedb.p.rapidapi.com/exercises",
+        {
+          headers: {
+            "X-RapidAPI-Key": XRAPIDAPIKEY,
+            "X-RapidAPI-Host": XRAPIDAPIHOST,
+          },
+        }
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const exercisesSlice = createSlice({
   name: "exercises",
