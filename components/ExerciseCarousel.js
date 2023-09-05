@@ -1,14 +1,35 @@
-import { View, Text, Image, Dimensions } from "react-native";
-import React from "react";
-import { useSelector } from "react-redux";
+import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
+import React, { useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-native-reanimated-carousel";
-import { ArrowLeftIcon, ArrowRightIcon } from "react-native-heroicons/solid";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  PlusCircleIcon,
+} from "react-native-heroicons/solid";
+import { BookmarkIcon } from "react-native-heroicons/outline";
+import { toggleMenu } from "../features/SaveMenu/saveMenuSlice";
 
 const ExerciseCarousel = () => {
   const width = Dimensions.get("window").width;
-  const random = [...useSelector((state) => state.exercises.selectedWorkout)]
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 12);
+  // const random = [
+  //   ...useSelector((state) => state.selectedWorkout.selectedWorkout),
+  // ]
+  //   .sort(() => 0.5 - Math.random())
+  //   .slice(0, 12);
+
+  // Use useSelector outside of useMemo to get the selectedWorkout
+  const selectedWorkout = useSelector(
+    (state) => state.selectedWorkout.selectedWorkout
+  );
+
+  // Memoize the random data so it doesn't change unless selectedWorkout changes
+  const random = useMemo(() => {
+    return [...selectedWorkout].sort(() => 0.5 - Math.random()).slice(0, 12);
+  }, [selectedWorkout]);
+
+  const dispatch = useDispatch();
+
   return (
     <View className="mt-10">
       <ArrowLeftIcon
@@ -21,7 +42,21 @@ const ExerciseCarousel = () => {
         data={random}
         scrollAnimationDuration={1000}
         renderItem={({ item }) => (
-          <View className="items-center h-full justify-center">
+          <View className="items-center h-full justify-center relative">
+            {/* Save Button */}
+            <TouchableOpacity
+              onPress={() => dispatch(toggleMenu())}
+              style={{
+                position: "absolute",
+                zIndex: "10000",
+                top: "60%",
+                right: "30%",
+              }}
+            >
+              <BookmarkIcon size={40} />
+            </TouchableOpacity>
+            {/* End Save Button */}
+
             <Image
               className="rounded-full"
               source={{ uri: item ? item.gifUrl : "" }}

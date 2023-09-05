@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedWorkout } from "../features/exercises/exercisesSlice";
+import { setSelectedWorkout } from "../features/exercises/selectedExerciseSlice";
 
 const CategoryButton = ({ text, page, category, target }) => {
   // Navigation Object
