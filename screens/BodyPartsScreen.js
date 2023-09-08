@@ -17,7 +17,7 @@ const BodyParts = () => {
   ]);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FF5C00]">
+    <SafeAreaView className="flex-1 bg-[#F02D3A]">
       {/* Back Button */}
       <Backbutton />
       {/* End Back Button */}

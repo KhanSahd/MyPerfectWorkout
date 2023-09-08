@@ -9,6 +9,7 @@ import {
 } from "react-native-heroicons/solid";
 import { BookmarkIcon } from "react-native-heroicons/outline";
 import { toggleMenu } from "../features/SaveMenu/saveMenuSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const ExerciseCarousel = () => {
   const width = Dimensions.get("window").width;
@@ -29,6 +30,7 @@ const ExerciseCarousel = () => {
   }, [selectedWorkout]);
 
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   return (
     <View className="mt-10">
@@ -45,7 +47,7 @@ const ExerciseCarousel = () => {
           <View className="items-center h-full justify-center relative">
             {/* Save Button */}
             <TouchableOpacity
-              onPress={() => dispatch(toggleMenu())}
+              onPress={() => navigation.navigate("SaveExerciseMenu")}
               style={{
                 position: "absolute",
                 zIndex: "10000",

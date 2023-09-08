@@ -9,16 +9,13 @@ const ExerciseScreen = () => {
   const isMenuOpen = useSelector((state) => state.saveMenu.menuShown);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FF5C00]">
+    <SafeAreaView className="flex-1 bg-[#F02D3A]">
       {/* Back Button */}
       <Backbutton />
       {/* End Back Button */}
       {/* Carousel */}
       <ExerciseCarousel />
       {/* End Carousel */}
-      {/* Save Exercise Menu */}
-      {isMenuOpen ? <SaveExerciseMenu /> : ""}
-      {/* End Save Exercise Menu */}
     </SafeAreaView>
   );
 };

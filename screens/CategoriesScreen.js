@@ -25,7 +25,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#FF5C00]">
+    <SafeAreaView className="flex-1 bg-[#F02D3A]">
       <TouchableOpacity
         onPress={() => onLogout()}
         className="absolute top-14 right-5"
