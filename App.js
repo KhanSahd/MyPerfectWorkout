@@ -10,6 +10,8 @@ import ExerciseScreen from "./screens/ExerciseScreen";
 import TargetMuscleScreen from "./screens/TargetMuscleScreen";
 import EquipmentScreen from "./screens/EquipmentScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import SaveExerciseMenu from "./components/SaveExerciseMenu";
+import SaveExerciseForm from "./components/SaveExerciseForm";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -57,6 +59,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Register"
             component={RegisterScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, presentation: "modal" }}
+            name="SaveExerciseMenu"
+            component={SaveExerciseMenu}
           />
         </Stack.Navigator>
       </NavigationContainer>

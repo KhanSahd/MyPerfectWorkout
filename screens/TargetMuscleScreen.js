@@ -10,7 +10,7 @@ const TargetMuscleScreen = () => {
     ...new Set(exercises.map((exercise) => exercise.target)),
   ]);
   return (
-    <SafeAreaView className="flex-1 bg-[#FF5C00]">
+    <SafeAreaView className="flex-1 bg-[#F02D3A]">
       <Backbutton />
       <Text className="text-center text-2xl mt-10 text-white font-bold">
         Target Muscles

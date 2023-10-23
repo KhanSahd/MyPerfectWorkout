@@ -18,6 +18,7 @@ const initialState = {
 
   error: "",
   loading: false,
+  menuShown: false,
 };
 
 // Async Thunk
@@ -45,9 +46,6 @@ export const exercisesSlice = createSlice({
     add(state, action) {
       state.exercises = action.payload;
     },
-    setSelectedWorkout(state, action) {
-      state.selectedWorkout = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchExercises.pending, (state, action) => {
@@ -66,5 +64,5 @@ export const exercisesSlice = createSlice({
   },
 });
 
-export const { add, setSelectedWorkout } = exercisesSlice.actions;
+export const { add } = exercisesSlice.actions;
 export default exercisesSlice.reducer;

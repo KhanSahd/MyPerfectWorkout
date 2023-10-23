@@ -1,14 +1,14 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = "http://localhost:8000/api/users/";
+const API_URL = 'http://localhost:8000/api/users/';
 
 //Register user
 const register = async (user) => {
   const response = await axios.post(API_URL, user);
 
   if (response.data) {
-    await AsyncStorage.setItem("user", JSON.stringify(response.data));
+    await AsyncStorage.setItem('user', JSON.stringify(response.data));
   }
 
   return response.data;
@@ -16,10 +16,10 @@ const register = async (user) => {
 
 //Login user
 const login = async (user) => {
-  const response = await axios.post(API_URL + "login", user);
+  const response = await axios.post(API_URL + 'login', user);
 
   if (response) {
-    await AsyncStorage.setItem("user", JSON.stringify(response.data));
+    await AsyncStorage.setItem('user', JSON.stringify(response.data));
   }
 
   return response.data;
@@ -27,10 +27,10 @@ const login = async (user) => {
 
 //Logout user
 const logout = async () => {
-  await AsyncStorage.removeItem("user");
+  await AsyncStorage.removeItem('user');
 
   return {
-    type: "auth/logout",
+    type: 'auth/logout',
   };
 };
 
