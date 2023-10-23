@@ -2,10 +2,23 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkForStoredUser, reset } from '../features/auth/authSlice';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkForStoredUser());
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      navigation.navigate('Category Page');
+    }
+  }, [user]);
 
   return (
     <SafeAreaView className="flex-1 bg-[#F02D3A] items-center relative">
