@@ -1,8 +1,8 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import React, { useState } from "react";
-import CategoryButton from "../components/CategoryButton";
-import { useSelector } from "react-redux";
-import Backbutton from "../components/Backbutton";
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import CategoryButton from '../components/CategoryButton';
+import { useSelector } from 'react-redux';
+import Backbutton from '../components/Backbutton';
 
 const EquipmentScreen = () => {
   const exercises = useSelector((state) => state.exercises.exercises);
@@ -10,20 +10,13 @@ const EquipmentScreen = () => {
     ...new Set(exercises.map((exercise) => exercise.equipment)),
   ]);
   return (
-    <SafeAreaView className="flex-1 bg-[#FF5C00]">
+    <SafeAreaView className="flex-1 bg-[#F02D3A]">
       <Backbutton />
-      <Text className="text-center text-2xl mt-10 text-white font-bold">
-        Equipment
-      </Text>
+      <Text className="text-center text-2xl mt-10 text-white font-bold">Equipment</Text>
       <ScrollView horizontal>
         <View className="flex-1 items-center mt-12 flex-wrap content-center  ">
           {equipment.map((equip) => (
-            <CategoryButton
-              key={equip}
-              text={equip}
-              category={"equipment"}
-              target={true}
-            />
+            <CategoryButton key={equip} text={equip} category={'equipment'} target={true} />
           ))}
         </View>
       </ScrollView>

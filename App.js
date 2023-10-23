@@ -1,17 +1,19 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import LoginScreen from "./screens/LoginScreen";
-import CategoriesScreen from "./screens/CategoriesScreen";
-import { Provider } from "react-redux";
-import store from "./store";
-import BodyPartsScreen from "./screens/BodyPartsScreen";
-import ExerciseScreen from "./screens/ExerciseScreen";
-import TargetMuscleScreen from "./screens/TargetMuscleScreen";
-import EquipmentScreen from "./screens/EquipmentScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import SaveExerciseMenu from "./components/SaveExerciseMenu";
-import SaveExerciseForm from "./components/SaveExerciseForm";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import WelcomeScreen from './screens/WelcomeScreen';
+import LoginScreen from './screens/LoginScreen';
+import CategoriesScreen from './screens/CategoriesScreen';
+import { Provider } from 'react-redux';
+import store from './store';
+import BodyPartsScreen from './screens/BodyPartsScreen';
+import ExerciseScreen from './screens/ExerciseScreen';
+import TargetMuscleScreen from './screens/TargetMuscleScreen';
+import EquipmentScreen from './screens/EquipmentScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import SaveExerciseMenu from './components/SaveExerciseMenu';
+import SaveExerciseForm from './components/SaveExerciseForm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,16 +22,8 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Welcome"
-            component={WelcomeScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={LoginScreen}
-          />
+          <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
           <Stack.Screen
             options={{ headerShown: false }}
             name="Category Page"
@@ -61,7 +55,7 @@ export default function App() {
             component={RegisterScreen}
           />
           <Stack.Screen
-            options={{ headerShown: false, presentation: "modal" }}
+            options={{ headerShown: false, presentation: 'modal' }}
             name="SaveExerciseMenu"
             component={SaveExerciseMenu}
           />

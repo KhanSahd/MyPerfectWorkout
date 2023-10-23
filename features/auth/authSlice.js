@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
   user: null,
@@ -40,6 +41,21 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout();
 });
 
+// Function to check if a user is already logged in during app startup
+export const checkForStoredUser = createAsyncThunk(
+  'auth/checkForStoredUser',
+  async (_, thunkAPI) => {
+    try {
+      const storedUser = await AsyncStorage.getItem('user');
+      if (storedUser) {
+        thunkAPI.dispatch(authSlice.actions.setUser(JSON.parse(storedUser)));
+      }
+    } catch (error) {
+      // Handle errors if any
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -49,6 +65,9 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = '';
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -87,5 +106,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, setUser } = authSlice.actions;
 export default authSlice.reducer;
