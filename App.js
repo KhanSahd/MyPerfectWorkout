@@ -11,9 +11,7 @@ import TargetMuscleScreen from './screens/TargetMuscleScreen';
 import EquipmentScreen from './screens/EquipmentScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import SaveExerciseMenu from './components/SaveExerciseMenu';
-import SaveExerciseForm from './components/SaveExerciseForm';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import SavedExercisesScreen from './screens/SavedExercisesScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -48,6 +46,11 @@ export default function App() {
             options={{ headerShown: false }}
             name="Equipment"
             component={EquipmentScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Saved Exercises"
+            component={SavedExercisesScreen}
           />
           <Stack.Screen
             options={{ headerShown: false }}

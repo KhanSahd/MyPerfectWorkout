@@ -25,6 +25,8 @@ const SaveExerciseMenu = () => {
   const selectedSingleExercise = useSelector((state) => state.selectedSingleExercise);
   const { user } = useSelector((state) => state.auth);
 
+  const { bodyPart, equipment, target, gifUrl, id, name } = (state) => state.selectedSingleExercise;
+
   const generateColorsMap = useMemo(() => {
     const colorsMap = new Map();
     workouts.forEach((exercise) => {
@@ -40,9 +42,10 @@ const SaveExerciseMenu = () => {
     try {
       const res = await axios.put('http://localhost:8000/api/exercises', {
         workoutId: exercise._id,
-        data: selectedSingleExercise,
+        data: selectedSingleExercise.selectedSingleExercise,
       });
       Alert.alert('Exercise Saved!');
+      navigation.goBack();
     } catch (err) {
       Alert.alert('Error saving exercise', err);
     }

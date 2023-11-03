@@ -25,9 +25,7 @@ const Categories = () => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
     }
-    if (savedExercises.length === 0) {
-      dispatch(fetchSavedExercises(user._id));
-    }
+    dispatch(fetchSavedExercises(user._id));
   }, []);
 
   return (
@@ -43,7 +41,7 @@ const Categories = () => {
         <CategoryButton text="Target Muscles" page="Target Muscles" />
         <CategoryButton text="Equipment" page="Equipment" />
         <CategoryButton text="Random" />
-        <CategoryButton text="My Saved Workouts" />
+        <CategoryButton text="My Saved Workouts" page="Saved Exercises" />
       </View>
     </SafeAreaView>
   );

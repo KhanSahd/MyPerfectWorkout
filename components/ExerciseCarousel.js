@@ -1,5 +1,5 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-native-reanimated-carousel';
 import { ArrowLeftIcon, ArrowRightIcon, PlusCircleIcon } from 'react-native-heroicons/solid';
@@ -27,13 +27,22 @@ const ExerciseCarousel = () => {
     navigation.navigate('SaveExerciseMenu');
   };
 
+  // useEffect(() => {
+  //   console.log(selectedWorkout[0].exercises);
+  // }, []);
   return (
     <View className="mt-10">
       <ArrowLeftIcon size={20} color={'lightgray'} style={{ position: 'absolute', top: '45%' }} />
+      {selectedWorkout[0].userId ? (
+        <Text className="text-center text-white text-2xl font-bold mt-5">
+          {selectedWorkout[0].name}
+        </Text>
+      ) : null}
       <Carousel
         width={width}
-        data={random}
+        data={selectedWorkout[0].userId ? selectedWorkout[0].exercises : random}
         scrollAnimationDuration={1000}
+        loop={false}
         renderItem={({ item }) => (
           <View className="items-center h-full justify-center relative">
             {/* Save Button */}
@@ -42,16 +51,15 @@ const ExerciseCarousel = () => {
               style={{
                 position: 'absolute',
                 zIndex: '10000',
-                top: '60%',
+                top: item.data ? '59%' : '60%',
                 right: '30%',
               }}>
               <BookmarkIcon size={40} fill="white" />
             </TouchableOpacity>
             {/* End Save Button */}
-
             <Image
               className="rounded-full"
-              source={{ uri: item ? item.gifUrl : '' }}
+              source={{ uri: item.data ? item.data.gifUrl : !item.data ? item.gifUrl : '' }}
               style={{
                 width: width / 2 + 100,
                 height: width / 2 + 100,
@@ -59,12 +67,14 @@ const ExerciseCarousel = () => {
               }}
             />
             <View className="mt-6">
-              <Text className="text-white text-center text-xl font-bold">Name: {item.name}</Text>
               <Text className="text-white text-center text-xl font-bold">
-                Target: {item.target}
+                Name: {item.data ? item.data.name : item.name}
               </Text>
               <Text className="text-white text-center text-xl font-bold">
-                Equipment: {item.equipment}
+                Target: {item.data ? item.data.target : item.target}
+              </Text>
+              <Text className="text-white text-center text-xl font-bold">
+                Equipment: {item.data ? item.data.equipment : item.equipment}
               </Text>
             </View>
           </View>
