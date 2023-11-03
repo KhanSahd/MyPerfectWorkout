@@ -47,4 +47,20 @@ const saveExercise = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getExercises, saveExercise };
+const updateWorkout = asyncHandler(async (req, res) => {
+  const { workoutId, data } = req.body;
+  const workout = await SavedExercise.findById(workoutId);
+  const addToWorkout = await SavedExercise.findByIdAndUpdate(
+    workoutId,
+    { $addToSet: { exercises: { data } } },
+    { new: true }
+  );
+
+  if (addToWorkout) {
+    res.status(201).json({ message: 'Exercises saved' });
+  } else {
+    res.status(400).json({ message: 'Unable to save exercise' });
+  }
+});
+
+module.exports = { getExercises, saveExercise, updateWorkout };

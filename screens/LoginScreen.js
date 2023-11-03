@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +23,10 @@ const LoginScreen = () => {
     }
 
     dispatch(reset());
+
+    if (isError) {
+      Alert.alert('Invalid Credentials', errorMessage);
+    }
   }, [user, isError, isSuccess, errorMessage, navigation, dispatch]);
 
   const handleLogin = async () => {

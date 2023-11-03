@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const config = {
   headers: {
@@ -13,7 +13,7 @@ const config = {
 const initialState = {
   // All Exercises:
   exercises: [],
-  saveExercises: [],
+  savedExercises: [],
   error: '',
   loading: false,
   menuShown: false,
@@ -31,9 +31,9 @@ export const fetchExercises = createAsyncThunk('exercises/fetchExercises', async
   return data;
 });
 
-export const fetchedSavedExercises = createAsyncThunk(
+export const fetchSavedExercises = createAsyncThunk(
   'exercises/fetchedSavedExercises',
-  async () => {
+  async (userId) => {
     const response = await fetch(
       'http://localhost:8000/api/exercises',
       {
@@ -42,7 +42,7 @@ export const fetchedSavedExercises = createAsyncThunk(
           'X-RapidAPI-Host': XRAPIDAPIHOST,
         },
       },
-      { id: useDispatch().auth.user._id }
+      { id: userId }
     );
     const data = await response.json();
     return data;
@@ -55,6 +55,9 @@ export const exercisesSlice = createSlice({
   reducers: {
     add(state, action) {
       state.exercises = action.payload;
+    },
+    addToSaved(state, action) {
+      state.savedExercises = [...state.savedExercises, action.payload];
     },
   },
   extraReducers: (builder) => {
@@ -71,16 +74,16 @@ export const exercisesSlice = createSlice({
       state.exercises = [];
       state.error = action.error.message;
     });
-    builder.addCase(fetchedSavedExercises.pending, (state, action) => {
+    builder.addCase(fetchSavedExercises.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchedSavedExercises.fulfilled, (state, action) => {
+    builder.addCase(fetchSavedExercises.fulfilled, (state, action) => {
       state.loading = false;
-      state.saveExercises = action.payload;
+      state.savedExercises = action.payload;
       state.error = '';
     });
   },
 });
 
-export const { add } = exercisesSlice.actions;
+export const { add, addToSaved } = exercisesSlice.actions;
 export default exercisesSlice.reducer;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CategoryButton from '../components/CategoryButton';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
 import { useSelector, useDispatch } from 'react-redux';
-import { add, fetchExercises } from '../features/exercises/exercisesSlice';
+import { add, fetchExercises, fetchSavedExercises } from '../features/exercises/exercisesSlice';
 import { logout, reset } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,7 +13,7 @@ const Categories = () => {
   const navigation = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
-  const { exercises } = useSelector((state) => state.exercises);
+  const { exercises, savedExercises } = useSelector((state) => state.exercises);
 
   const onLogout = () => {
     dispatch(logout());
@@ -24,6 +24,9 @@ const Categories = () => {
   useEffect(() => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
+    }
+    if (savedExercises.length === 0) {
+      dispatch(fetchSavedExercises(user._id));
     }
   }, []);
 

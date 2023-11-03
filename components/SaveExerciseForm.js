@@ -4,6 +4,7 @@ import axios from 'axios';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu } from '../features/SaveMenu/saveMenuSlice';
+import { addToSaved } from '../features/exercises/exercisesSlice';
 
 const SaveExerciseForm = ({ setShowForm }) => {
   const [exerciseName, setExerciseName] = useState('');
