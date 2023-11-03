@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
-const userModel = require("./userModel");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const savedExerciseSchema = new mongoose.Schema({
+const savedExercisesSchema = new mongoose.Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   name: {
@@ -14,10 +13,12 @@ const savedExerciseSchema = new mongoose.Schema({
   },
   exercises: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Exercise",
+      data: {
+        type: Object,
+        required: true,
+      },
     },
   ],
 });
 
-module.exports = mongoose.model("SavedExercise", savedExerciseSchema);
+module.exports = mongoose.model('SavedExercises', savedExercisesSchema);
