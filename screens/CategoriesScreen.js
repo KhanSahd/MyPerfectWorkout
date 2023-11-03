@@ -13,8 +13,7 @@ const Categories = () => {
   const navigation = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
-  // const exercises = useSelector((state) => state.exercises.exercises);
-  // const isLoggedIn = AsyncStorage.getItem('user');
+  const { exercises } = useSelector((state) => state.exercises);
 
   const onLogout = () => {
     dispatch(logout());
@@ -23,8 +22,9 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    console.log('user', user);
-    dispatch(fetchExercises());
+    if (exercises.length === 0) {
+      dispatch(fetchExercises());
+    }
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { PlusIcon, ChevronDownIcon } from 'react-native-heroicons/solid';
@@ -11,6 +11,7 @@ const SaveExerciseMenu = () => {
   const isMenuOpen = useSelector((state) => state.saveMenu.menuShown);
   const navigation = useNavigation();
   const [showForm, setShowForm] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <ScrollView className="w-full h-full bg-white">
@@ -29,7 +30,7 @@ const SaveExerciseMenu = () => {
       {/* End Create a new workout */}
 
       {/* Create A New Exercise */}
-      {showForm ? <SaveExerciseForm /> : null}
+      {showForm ? <SaveExerciseForm setShowForm={setShowForm} /> : null}
     </ScrollView>
   );
 };
