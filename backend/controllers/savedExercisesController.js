@@ -2,12 +2,14 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SavedExercise = require('../models/savedExerciseModel');
+const mongoose = require('mongoose');
 
 // @desc    Get all saved exercises
 // @route   GET /api/exercises
 // @access  Public
 const getExercises = asyncHandler(async (req, res) => {
-  const exercises = await SavedExercise.find();
+  const { id } = req.query;
+  const exercises = await SavedExercise.find({ userId: id });
   res.status(200).json(exercises);
 });
 
