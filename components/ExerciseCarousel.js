@@ -34,7 +34,7 @@ const ExerciseCarousel = () => {
     <View className="mt-10">
       <ArrowLeftIcon size={20} color={'lightgray'} style={{ position: 'absolute', top: '45%' }} />
       {selectedWorkout[0].userId ? (
-        <Text className="text-center text-white text-2xl font-bold mt-5">
+        <Text className="text-center w-full text-white text-2xl font-bold mt-5 absolute">
           {selectedWorkout[0].name}
         </Text>
       ) : null}
