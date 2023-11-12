@@ -31,7 +31,7 @@ const SaveExerciseForm = ({ setShowForm }) => {
   };
 
   return (
-    <View className="m-auto bg-red-600 mx-16 shadow-md shadow-slate-500 rounded-xl">
+    <View className="absolute right-0 left-0 top-1/2 w-80 bg-red-600 mx-16 shadow-md shadow-slate-500 rounded-xl">
       <View className="flex flex-col justify-center items-center">
         <TextInput
           onChangeText={(e) => setExerciseName(e)}

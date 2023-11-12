@@ -23,9 +23,6 @@ const SaveExerciseMenu = () => {
   const [showForm, setShowForm] = useState(false);
   const workouts = useSelector((state) => state.exercises.savedExercises);
   const selectedSingleExercise = useSelector((state) => state.selectedSingleExercise);
-  const { user } = useSelector((state) => state.auth);
-
-  const { bodyPart, equipment, target, gifUrl, id, name } = (state) => state.selectedSingleExercise;
 
   const generateColorsMap = useMemo(() => {
     const colorsMap = new Map();
@@ -73,10 +70,9 @@ const SaveExerciseMenu = () => {
         {workouts.map((exercise) => {
           const secondCharacter = exercise.name.split(' ')[1] ? exercise.name.split(' ')[1][0] : '';
           return (
-            <View className="m-7 ml-3 items-center w-24">
+            <View key={exercise._id} className="m-7 ml-3 items-center w-24">
               <TouchableOpacity
                 className="bg-white border border-black rounded-full w-12 h-12 justify-center items-center"
-                key={exercise._id}
                 onPress={() => addToSavedWorkout(exercise)}>
                 <View
                   className="w-full h-full rounded-full items-center justify-center"

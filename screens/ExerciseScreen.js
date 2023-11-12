@@ -6,8 +6,6 @@ import Backbutton from '../components/Backbutton';
 import SaveExerciseMenu from '../components/SaveExerciseMenu';
 
 const ExerciseScreen = () => {
-  const { selectedWorkout } = useSelector((state) => state.selectedWorkout);
-
   return (
     <SafeAreaView className="flex-1 bg-[#F02D3A]">
       {/* Back Button */}

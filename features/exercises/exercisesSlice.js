@@ -33,17 +33,13 @@ export const fetchExercises = createAsyncThunk('exercises/fetchExercises', async
 
 export const fetchSavedExercises = createAsyncThunk(
   'exercises/fetchedSavedExercises',
-  async (userId) => {
-    const response = await fetch(
-      'http://localhost:8000/api/exercises',
-      {
-        headers: {
-          'X-RapidAPI-Key': XRAPIDAPIKEY,
-          'X-RapidAPI-Host': XRAPIDAPIHOST,
-        },
+  async (id) => {
+    const response = await fetch(`http://localhost:8000/api/exercises?id=${id}`, {
+      headers: {
+        'X-RapidAPI-Key': XRAPIDAPIKEY,
+        'X-RapidAPI-Host': XRAPIDAPIHOST,
       },
-      { id: userId }
-    );
+    });
     const data = await response.json();
     return data;
   }

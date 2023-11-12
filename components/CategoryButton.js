@@ -26,7 +26,9 @@ const CategoryButton = ({ text, page, category, target }) => {
         filteredExercises = exercises.filter((exercise) => exercise.target === text);
         break;
       case 'Saved Exercises':
-        filteredExercises = savedExercises.filter((exercise) => exercise.name === text);
+        const savedWorkout = savedExercises.filter((exercise) => exercise.name === text);
+        const workoutIds = savedWorkout[0].exercises.map((exercise) => exercise.data.id);
+        filteredExercises = exercises.filter((exercise) => workoutIds.includes(exercise.id));
         break;
     }
     dispatch(setSelectedWorkout(filteredExercises));

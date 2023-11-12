@@ -6,14 +6,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { add, fetchExercises, fetchSavedExercises } from '../features/exercises/exercisesSlice';
 import { logout, reset } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import socketIOClient from 'socket.io-client';
 
 const Categories = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
-  const { exercises, savedExercises } = useSelector((state) => state.exercises);
+  const { exercises } = useSelector((state) => state.exercises);
+  const id = user._id;
 
   const onLogout = () => {
     dispatch(logout());
@@ -25,8 +26,29 @@ const Categories = () => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
     }
-    dispatch(fetchSavedExercises(user._id));
+    dispatch(fetchSavedExercises(id));
   }, []);
+
+  // Socket Connection
+  const socket = socketIOClient('http://localhost:8000');
+
+  const socketDispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on('exerciseAdded', (exercise) => {
+      if (exercise.userId === user._id) {
+        socketDispatch(fetchSavedExercises(id));
+      }
+    });
+    socket.on('exerciseUpdated', (exercise) => {
+      if (exercise.user === user._id) {
+        socketDispatch(fetchSavedExercises(id));
+      }
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [socketDispatch]);
 
   return (
     <SafeAreaView className="flex-1 bg-[#F02D3A]">
