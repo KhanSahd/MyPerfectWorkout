@@ -23,9 +23,6 @@ const SaveExerciseMenu = () => {
   const [showForm, setShowForm] = useState(false);
   const workouts = useSelector((state) => state.exercises.savedExercises);
   const selectedSingleExercise = useSelector((state) => state.selectedSingleExercise);
-  const { user } = useSelector((state) => state.auth);
-
-  const { bodyPart, equipment, target, gifUrl, id, name } = (state) => state.selectedSingleExercise;
 
   const generateColorsMap = useMemo(() => {
     const colorsMap = new Map();

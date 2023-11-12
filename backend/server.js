@@ -7,8 +7,6 @@ const connectDB = require('./config/db');
 const http = require('http');
 const socketIo = require('socket.io');
 
-connectDB();
-
 const app = express();
 
 // Socket.io
@@ -19,12 +17,15 @@ const io = socketIo(server, {
   },
 });
 
-io.on('connection', (socket) => {
-  console.log('New client connected');
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-});
+// io.on('connection', (socket) => {
+//   console.log('New client connected');
+
+//   socket.on('disconnect', () => {
+//     console.log('Client disconnected');
+//   });
+// });
+
+connectDB(io);
 
 // setInterval(() => {
 //   // io.to('clock-room').emit('time', new Date());

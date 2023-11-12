@@ -13,7 +13,7 @@ const Categories = () => {
   const navigation = useNavigation();
 
   const { user } = useSelector((state) => state.auth);
-  const { exercises, savedExercises } = useSelector((state) => state.exercises);
+  const { exercises } = useSelector((state) => state.exercises);
   const id = user._id;
 
   const onLogout = () => {
@@ -37,6 +37,11 @@ const Categories = () => {
   useEffect(() => {
     socket.on('exerciseAdded', (exercise) => {
       if (exercise.userId === user._id) {
+        socketDispatch(fetchSavedExercises(id));
+      }
+    });
+    socket.on('exerciseUpdated', (exercise) => {
+      if (exercise.user === user._id) {
         socketDispatch(fetchSavedExercises(id));
       }
     });

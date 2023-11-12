@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SavedExercise = require('../models/savedExerciseModel');
 const mongoose = require('mongoose');
+const socketIo = require('socket.io');
 
 // @desc    Get all saved exercises
 // @route   GET /api/exercises
@@ -50,15 +51,25 @@ const saveExercise = asyncHandler(async (req, res) => {
 });
 
 const updateWorkout = asyncHandler(async (req, res) => {
-  const { workoutId, data } = req.body;
+  const { workoutId, data, name } = req.body;
   const workout = await SavedExercise.findById(workoutId);
-  const addToWorkout = await SavedExercise.findByIdAndUpdate(
-    workoutId,
-    { $addToSet: { exercises: { data } } },
-    { new: true }
-  );
+  let addToWorkout;
+  if (!workout) {
+    res.status(400).json({ message: 'Workout not found' });
+    return;
+  }
+  if (!name) {
+    addToWorkout = await SavedExercise.findByIdAndUpdate(
+      workoutId,
+      { $addToSet: { exercises: { data } } },
+      { new: true, fullDocument: true }
+    );
+  } else {
+    addToWorkout = await SavedExercise.findByIdAndUpdate(workoutId, { $set: { name: name } });
+  }
 
   if (addToWorkout) {
+    // io.emit('exerciseUpdated', { workout: addToWorkout, userId });
     res.status(201).json({ message: 'Exercises saved' });
   } else {
     res.status(400).json({ message: 'Unable to save exercise' });

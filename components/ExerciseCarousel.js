@@ -27,12 +27,9 @@ const ExerciseCarousel = () => {
     navigation.navigate('SaveExerciseMenu');
   };
 
-  // useEffect(() => {
-  //   console.log(selectedWorkout[0].exercises);
-  // }, []);
   return (
     <View className="mt-10">
-      <ArrowLeftIcon size={20} color={'lightgray'} style={{ position: 'absolute', top: '45%' }} />
+      <ArrowLeftIcon size={20} color={'white'} style={{ position: 'absolute', top: '45%' }} />
       {selectedWorkout[0].userId ? (
         <Text className="text-center w-full text-white text-2xl font-bold mt-5 absolute">
           {selectedWorkout[0].name}
@@ -40,7 +37,7 @@ const ExerciseCarousel = () => {
       ) : null}
       <Carousel
         width={width}
-        data={selectedWorkout[0].userId ? selectedWorkout[0].exercises : random}
+        data={random}
         scrollAnimationDuration={1000}
         loop={false}
         renderItem={({ item }) => (
@@ -82,7 +79,7 @@ const ExerciseCarousel = () => {
       />
       <ArrowRightIcon
         size={20}
-        color={'lightgray'}
+        color={'white'}
         style={{ position: 'absolute', top: '45%', right: 0 }}
       />
     </View>

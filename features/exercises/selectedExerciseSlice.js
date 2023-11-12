@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const selectedWorkoutSlice = createSlice({
-  name: "selectedWorkout",
+  name: 'selectedWorkout',
   initialState: {
     selectedWorkout: [],
   },
