@@ -44,8 +44,8 @@ const EditExerciseMenu = () => {
       </View>
       <TouchableOpacity
         onPress={() => handleSave()}
-        className="bg-blue-600 px-5 py-2 mt-5 rounded-lg">
-        <Text className="text-white">Save</Text>
+        className="bg-[#AFFC41] px-5 py-2 mt-5 rounded-lg shadow">
+        <Text className="text-black">Save</Text>
       </TouchableOpacity>
     </View>
   );

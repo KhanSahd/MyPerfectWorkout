@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import CategoryButton from '../components/CategoryButton';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { add, fetchExercises, fetchSavedExercises } from '../features/exercises/
 import { logout, reset } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import socketIOClient from 'socket.io-client';
+import { Bars3Icon } from 'react-native-heroicons/solid';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -50,20 +51,27 @@ const Categories = () => {
     };
   }, [socketDispatch]);
 
+  // bg-color: bg-[#F02D3A]
+  // logout styles: className="absolute top-24 right-5"
+
   return (
-    <SafeAreaView className="flex-1 bg-[#F02D3A]">
-      <TouchableOpacity onPress={() => onLogout()} className="absolute top-14 right-5">
-        <Text className="text-white text-xl">Logout</Text>
-      </TouchableOpacity>
-      <Text className="text-center text-2xl mt-10 text-white font-bold">
-        Welcome {user.name}, Pick a category to find a workout
-      </Text>
-      <View className="flex-1 flex-col justify-evenly items-center mt-5">
-        <CategoryButton text="Body Part" page="BodyParts" />
-        <CategoryButton text="Target Muscles" page="Target Muscles" />
-        <CategoryButton text="Equipment" page="Equipment" />
-        <CategoryButton text="Random" />
-        <CategoryButton text="My Saved Workouts" page="Saved Exercises" />
+    <SafeAreaView className="flex-1 bg-white">
+      <View className="py-6 flex-row-reverse items-center justify-between">
+        <TouchableOpacity onPress={() => navigation.navigate('HamburgerMenu')} className="mr-4">
+          {/* <Text className="text-black text-xl mr-4">Logout</Text> */}
+          <Bars3Icon size={30} color={'black'} />
+        </TouchableOpacity>
+        <Text className="text-3xl text-black font-light flex-1 ml-4">
+          {/* Welcome {user.name}, Pick a category to find a workout */}
+          Categories
+        </Text>
+      </View>
+      <View className="flex-1 flex-col justify-evenly w-full items-center">
+        <CategoryButton text="Body Part" page="BodyParts" color="#623CEA" />
+        <CategoryButton text="Target Muscles" page="Target Muscles" color="#DF2935" />
+        <CategoryButton text="Equipment" page="Equipment" color="#FD5200" />
+        <CategoryButton text="My Saved Workouts" page="Saved Exercises" color="#00FFE7" />
+        <CategoryButton text="Random" category="random" color="#F00699" />
       </View>
     </SafeAreaView>
   );

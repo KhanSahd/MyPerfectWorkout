@@ -13,6 +13,8 @@ import RegisterScreen from './screens/RegisterScreen';
 import SaveExerciseMenu from './components/SaveExerciseMenu';
 import SavedExercisesScreen from './screens/SavedExercisesScreen';
 import EditExerciseMenu from './components/EditExerciseMenu';
+import Header from './components/Header';
+import HamburgerMenu from './screens/HamburgerMenu';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -67,6 +69,11 @@ export default function App() {
             options={{ headerShown: false, presentation: 'modal' }}
             name="EditExerciseMenu"
             component={EditExerciseMenu}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, presentation: 'modal' }}
+            name="HamburgerMenu"
+            component={HamburgerMenu}
           />
         </Stack.Navigator>
       </NavigationContainer>

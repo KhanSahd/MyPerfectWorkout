@@ -26,24 +26,25 @@ const SavedExercisesScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F02D3A]">
-      <Backbutton />
+    <SafeAreaView className="flex-1 bg-white items-center">
+      <Backbutton color="black" />
       {/* Edit Button */}
 
-      <View className="flex-row relative items-center justify-center">
-        <Text className="text-center text-2xl mt-10 text-white font-bold">Saved Workouts</Text>
+      <View className="flex-row relative items-center justify-center w-full">
+        <Text className="text-center text-2xl mt-10 text-black font-light">Saved Workouts</Text>
         <TouchableOpacity
           className="absolute right-6 bottom-2"
           onPress={() => setShowEditButton(!showEditButton)}>
-          <Text className="text-white">Edit</Text>
+          <Text className="text-black">Edit</Text>
         </TouchableOpacity>
       </View>
-      <View className="flex-1 items-center mt-12 flex-wrap content-center  ">
-        {savedExercises.length > 0 ? (
-          savedExercises.map((exercise, index) => {
-            return (
-              <View key={index} className={`relative ${showEditButton ? `mr-4` : ''}`}>
-                {/* <TouchableOpacity>
+      <View className="mt-12">
+        <ScrollView>
+          {savedExercises.length > 0 ? (
+            savedExercises.map((exercise, index) => {
+              return (
+                <View key={index}>
+                  {/* <TouchableOpacity>
                   <TrashIcon
                     style={{ position: 'absolute', top: 0, right: 0, zIndex: 1000 }}
                     size={20}
@@ -51,22 +52,29 @@ const SavedExercisesScreen = () => {
                     stroke="black"
                   />
                 </TouchableOpacity> */}
-                <CategoryButton target={true} text={exercise.name} category="Saved Exercises" />
-                {showEditButton ? (
-                  <TouchableOpacity
-                    className="absolute right-0"
-                    onPress={() => {
-                      handleEdit(exercise);
-                    }}>
-                    <PencilSquareIcon size={20} color="white" />
-                  </TouchableOpacity>
-                ) : null}
-              </View>
-            );
-          })
-        ) : (
-          <Text className="text-white">Save some workouts in order to see them here</Text>
-        )}
+                  <CategoryButton
+                    target={true}
+                    text={exercise.name}
+                    category="Saved Exercises"
+                    color="#00FFE7"
+                    space
+                  />
+                  {showEditButton ? (
+                    <TouchableOpacity
+                      className="absolute right-0"
+                      onPress={() => {
+                        handleEdit(exercise);
+                      }}>
+                      <PencilSquareIcon size={20} color="black" />
+                    </TouchableOpacity>
+                  ) : null}
+                </View>
+              );
+            })
+          ) : (
+            <Text className="text-[#00FFE7]">Save some workouts in order to see them here</Text>
+          )}
+        </ScrollView>
       </View>
 
       {/* Will implement later */}

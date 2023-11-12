@@ -29,7 +29,7 @@ const ExerciseCarousel = () => {
 
   return (
     <View className="mt-10">
-      <ArrowLeftIcon size={20} color={'white'} style={{ position: 'absolute', top: '45%' }} />
+      <ArrowLeftIcon size={20} color={'black'} style={{ position: 'absolute', top: '45%' }} />
       {selectedWorkout[0].userId ? (
         <Text className="text-center w-full text-white text-2xl font-bold mt-5 absolute">
           {selectedWorkout[0].name}
@@ -48,38 +48,40 @@ const ExerciseCarousel = () => {
               style={{
                 position: 'absolute',
                 zIndex: '10000',
-                top: item.data ? '59%' : '60%',
-                right: '30%',
+                top: item.data ? '59%' : '35%',
+                right: '25%',
               }}>
               <BookmarkIcon size={40} fill="white" />
             </TouchableOpacity>
             {/* End Save Button */}
-            <Image
-              className="rounded-full"
-              source={{ uri: item.data ? item.data.gifUrl : !item.data ? item.gifUrl : '' }}
-              style={{
-                width: width / 2 + 100,
-                height: width / 2 + 100,
-                resizeMode: 'stretch',
-              }}
-            />
-            <View className="mt-6">
-              <Text className="text-white text-center text-xl font-bold">
-                Name: {item.data ? item.data.name : item.name}
-              </Text>
-              <Text className="text-white text-center text-xl font-bold">
-                Target: {item.data ? item.data.target : item.target}
-              </Text>
-              <Text className="text-white text-center text-xl font-bold">
-                Equipment: {item.data ? item.data.equipment : item.equipment}
-              </Text>
+            <View className=" flex-1 items-center flex-col justify-between w-full">
+              <Image
+                className="rounded-full"
+                source={{ uri: item.data ? item.data.gifUrl : !item.data ? item.gifUrl : '' }}
+                style={{
+                  width: width / 2 + 100,
+                  height: width / 2 + 100,
+                  resizeMode: 'stretch',
+                }}
+              />
+              <View className="mb-36 w-full">
+                <Text className="text-black text-left text-xl font-bold ml-10">
+                  Name: {item.data ? item.data.name : item.name}
+                </Text>
+                <Text className="text-black text-left text-xl font-bold ml-10">
+                  Target: {item.data ? item.data.target : item.target}
+                </Text>
+                <Text className="text-black text-left text-xl font-bold ml-10">
+                  Equipment: {item.data ? item.data.equipment : item.equipment}
+                </Text>
+              </View>
             </View>
           </View>
         )}
       />
       <ArrowRightIcon
         size={20}
-        color={'white'}
+        color={'black'}
         style={{ position: 'absolute', top: '45%', right: 0 }}
       />
     </View>

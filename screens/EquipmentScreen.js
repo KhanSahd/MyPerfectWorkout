@@ -10,16 +10,16 @@ const EquipmentScreen = () => {
     ...new Set(exercises.map((exercise) => exercise.equipment)),
   ]);
   return (
-    <SafeAreaView className="flex-1 bg-[#F02D3A]">
-      <Backbutton />
-      <Text className="text-center text-2xl mt-10 text-white font-bold">Equipment</Text>
-      <ScrollView horizontal>
-        <View className="flex-1 items-center mt-12 flex-wrap content-center  ">
+    <SafeAreaView className="flex-1 bg-white items-center">
+      <Backbutton color="black" />
+      {/* <Text className="text-center text-2xl mt-10 text-black font-bold">Equipment</Text> */}
+      <View className="mt-12">
+        <ScrollView>
           {equipment.map((equip) => (
-            <CategoryButton key={equip} text={equip} category={'equipment'} target={true} />
+            <CategoryButton key={equip} text={equip} category={'equipment'} color="#FD5200" space />
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
