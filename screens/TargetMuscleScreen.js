@@ -1,8 +1,8 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import React, { useState } from "react";
-import Backbutton from "../components/Backbutton";
-import { useSelector } from "react-redux";
-import CategoryButton from "../components/CategoryButton";
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import Backbutton from '../components/Backbutton';
+import { useSelector } from 'react-redux';
+import CategoryButton from '../components/CategoryButton';
 
 const TargetMuscleScreen = () => {
   const exercises = useSelector((state) => state.exercises.exercises);
@@ -10,20 +10,22 @@ const TargetMuscleScreen = () => {
     ...new Set(exercises.map((exercise) => exercise.target)),
   ]);
   return (
-    <SafeAreaView className="flex-1 bg-[#F02D3A]">
-      <Backbutton />
-      <Text className="text-center text-2xl mt-10 text-white font-bold">
-        Target Muscles
-      </Text>
-      <View className="flex-1 items-center mt-12 flex-wrap content-center ">
-        {targetMuscles.map((muscle) => (
-          <CategoryButton
-            key={muscle}
-            text={muscle}
-            category={"target"}
-            target={true}
-          />
-        ))}
+    <SafeAreaView className="flex-1 bg-white items-center">
+      <Backbutton color="black" />
+      {/* <Text className="text-center text-2xl mt-10 text-white font-bold">Target Muscles</Text> */}
+      <View className="mt-12">
+        <ScrollView>
+          {targetMuscles.map((muscle) => (
+            <CategoryButton
+              key={muscle}
+              text={muscle}
+              category={'target'}
+              target={true}
+              color="#DF2935"
+              space
+            />
+          ))}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

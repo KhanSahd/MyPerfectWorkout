@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedWorkout } from '../features/exercises/selectedExerciseSlice';
 
-const CategoryButton = ({ text, page, category, target }) => {
+const CategoryButton = ({ text, page, category, target, color, space }) => {
   // Navigation Object
   const navigation = useNavigation();
 
@@ -25,6 +25,9 @@ const CategoryButton = ({ text, page, category, target }) => {
       case 'target':
         filteredExercises = exercises.filter((exercise) => exercise.target === text);
         break;
+      case 'random':
+        filteredExercises = exercises;
+        break;
       case 'Saved Exercises':
         const savedWorkout = savedExercises.filter((exercise) => exercise.name === text);
         const workoutIds = savedWorkout[0].exercises.map((exercise) => exercise.data.id);
@@ -35,17 +38,17 @@ const CategoryButton = ({ text, page, category, target }) => {
     navigation.navigate('Exercise Screen');
   };
 
-  return target ? (
+  return (
     <TouchableOpacity
       onPress={() => (page ? navigation.navigate(page) : category ? selectWorkout() : '')}
-      className={`bg-white p-3 ${target ? 'w-36' : 'w-2/4'} items-center mb-5 mr-5 rounded-full `}>
-      <Text className="font-bold text-md text-center">{text}</Text>
-    </TouchableOpacity>
-  ) : (
-    <TouchableOpacity
-      onPress={() => (page ? navigation.navigate(page) : category ? selectWorkout() : '')}
-      className="bg-white p-3 w-2/4 items-center rounded-full">
-      <Text className="font-bold text-lg">{text}</Text>
+      className={` w-96 p-10 border items-center justify-center rounded-lg ${
+        space ? 'mb-5' : ''
+      }  `}
+      style={{
+        backgroundColor: color ? color : '',
+        // background: color ? color : 'linear-gradient(0deg, #f350d1 0%, #52aaf0 100%)',
+      }}>
+      <Text className={`text-2xl text-white font-extrabold shadow-sm shadow-black `}>{text}</Text>
     </TouchableOpacity>
   );
 };

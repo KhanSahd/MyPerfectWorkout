@@ -7,9 +7,9 @@ import SaveExerciseMenu from '../components/SaveExerciseMenu';
 
 const ExerciseScreen = () => {
   return (
-    <SafeAreaView className="flex-1 bg-[#F02D3A]">
+    <SafeAreaView className="flex-1 bg-white">
       {/* Back Button */}
-      <Backbutton />
+      <Backbutton color="black" />
       {/* End Back Button */}
       {/* Carousel */}
       <ExerciseCarousel />
