@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Backbutton from '../components/Backbutton';
 import SaveExerciseMenu from '../components/SaveExerciseMenu';
 
-const ExerciseScreen = () => {
+const ExerciseScreen = ({ route }) => {
+  let { shouldRandomize, meta } = route.params;
   return (
     <SafeAreaView className="flex-1 bg-white">
       {/* Back Button */}
       <Backbutton color="black" />
       {/* End Back Button */}
       {/* Carousel */}
-      <ExerciseCarousel />
+      <ExerciseCarousel shouldRandomize={shouldRandomize} meta={meta} />
       {/* End Carousel */}
     </SafeAreaView>
   );

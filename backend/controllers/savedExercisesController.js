@@ -76,4 +76,32 @@ const updateWorkout = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getExercises, saveExercise, updateWorkout };
+const deleteWorkout = asyncHandler(async (req, res) => {
+  const { workoutId, exerciseId } = req.body;
+  const workout = await SavedExercise.findById(workoutId);
+  let deleteWorkout;
+  if (!workout) {
+    res.status(400).json({ message: 'Workout not found' });
+    return;
+  }
+
+  if (!exerciseId) {
+    deleteWorkout = await SavedExercise.findByIdAndDelete(workoutId);
+  } else {
+    deleteWorkout = await SavedExercise.findByIdAndUpdate(
+      workoutId,
+      {
+        $pull: { exercises: { id: exerciseId } },
+      },
+      { new: true, fullDocument: true }
+    );
+  }
+
+  if (deleteWorkout) {
+    res.status(200).json({ message: 'Exercise Deleted' });
+  } else {
+    res.status(400).json({ message: 'Unable to delete exercise' });
+  }
+});
+
+module.exports = { getExercises, saveExercise, updateWorkout, deleteWorkout };
