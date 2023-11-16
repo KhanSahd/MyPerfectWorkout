@@ -15,6 +15,7 @@ import SavedExercisesScreen from './screens/SavedExercisesScreen';
 import EditExerciseMenu from './components/EditExerciseMenu';
 import Header from './components/Header';
 import HamburgerMenu from './screens/HamburgerMenu';
+import ProfileScreen from './screens/ProfileScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -74,6 +75,11 @@ export default function App() {
             options={{ headerShown: false, presentation: 'modal' }}
             name="HamburgerMenu"
             component={HamburgerMenu}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, presentation: 'modal' }}
+            name="Profile"
+            component={ProfileScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

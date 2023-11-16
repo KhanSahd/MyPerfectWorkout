@@ -8,6 +8,7 @@ import { logout, reset } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import socketIOClient from 'socket.io-client';
 import { Bars3Icon } from 'react-native-heroicons/solid';
+import { setSelectedWorkout } from '../features/exercises/selectedExerciseSlice';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Categories = () => {
   const { user } = useSelector((state) => state.auth);
   const { exercises } = useSelector((state) => state.exercises);
   const id = user._id;
+  const selectedWorkout = useSelector((state) => state.selectedWorkout.selectedWorkout);
 
   const onLogout = () => {
     dispatch(logout());
@@ -45,6 +47,9 @@ const Categories = () => {
       if (exercise.user === user._id) {
         socketDispatch(fetchSavedExercises(id));
       }
+    });
+    socket.on('exerciseDeleted', (exercise) => {
+      socketDispatch(fetchSavedExercises(id));
     });
     return () => {
       socket.disconnect();

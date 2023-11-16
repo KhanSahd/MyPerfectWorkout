@@ -4,6 +4,7 @@ import ExerciseCarousel from '../components/ExerciseCarousel';
 import { useDispatch, useSelector } from 'react-redux';
 import Backbutton from '../components/Backbutton';
 import SaveExerciseMenu from '../components/SaveExerciseMenu';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ExerciseScreen = ({ route }) => {
   let { shouldRandomize, meta } = route.params;

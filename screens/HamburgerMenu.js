@@ -16,7 +16,7 @@ const HamburgerMenu = () => {
 
   return (
     <View className="flex-1 justify-stretch items-center">
-      <TouchableOpacity className="w-full p-5">
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')} className="w-full p-5">
         <Text className="text-center text-3xl">Profile</Text>
       </TouchableOpacity>
       {/* <TouchableOpacity className="w-full border-t-2 p-5">

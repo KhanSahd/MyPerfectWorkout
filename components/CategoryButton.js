@@ -71,7 +71,9 @@ const CategoryButton = ({ text, page, category, target, color, space }) => {
         backgroundColor: color ? color : '',
         // background: color ? color : 'linear-gradient(0deg, #f350d1 0%, #52aaf0 100%)',
       }}>
-      <Text className={`text-2xl text-white font-extrabold shadow-sm shadow-black `}>{text}</Text>
+      <Text className={`text-2xl text-white font-extrabold shadow-sm shadow-black capitalize `}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };

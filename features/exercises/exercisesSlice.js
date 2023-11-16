@@ -45,6 +45,20 @@ export const fetchSavedExercises = createAsyncThunk(
   }
 );
 
+export const deleteExercise = createAsyncThunk(
+  'exercises/deleteExercise',
+  async (exerciseId, workoutId) => {
+    const response = await fetch(`http://localhost:8000/api/exercises`, {
+      method: 'DELETE',
+      body: JSON.stringify({ exerciseId, workoutId }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  }
+);
+
 export const exercisesSlice = createSlice({
   name: 'exercises',
   initialState,

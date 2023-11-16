@@ -5,12 +5,14 @@ import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu } from '../features/SaveMenu/saveMenuSlice';
 import { addToSaved } from '../features/exercises/exercisesSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const SaveExerciseForm = ({ setShowForm }) => {
   const [exerciseName, setExerciseName] = useState('');
   const { user } = useSelector((state) => state.auth);
   const { selectedSingleExercise } = useSelector((state) => state.selectedSingleExercise);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleSave = async () => {
     const data = {
@@ -24,6 +26,7 @@ const SaveExerciseForm = ({ setShowForm }) => {
       alert('Exercise Saved!');
       setExerciseName('');
       setShowForm(false);
+      navigation.goBack();
       return;
     } catch (err) {
       Alert.alert('Error saving exercise', err);

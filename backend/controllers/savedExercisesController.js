@@ -77,7 +77,7 @@ const updateWorkout = asyncHandler(async (req, res) => {
 });
 
 const deleteWorkout = asyncHandler(async (req, res) => {
-  const { workoutId, exerciseId } = req.body;
+  const { workoutId, exerciseId } = req.query;
   const workout = await SavedExercise.findById(workoutId);
   let deleteWorkout;
   if (!workout) {
@@ -86,19 +86,22 @@ const deleteWorkout = asyncHandler(async (req, res) => {
   }
 
   if (!exerciseId) {
-    deleteWorkout = await SavedExercise.findByIdAndDelete(workoutId);
+    deleteWorkout = await SavedExercise.findByIdAndDelete(workoutId, {
+      new: true,
+      fullDocument: true,
+    });
   } else {
     deleteWorkout = await SavedExercise.findByIdAndUpdate(
       workoutId,
       {
-        $pull: { exercises: { id: exerciseId } },
+        $pull: { exercises: { 'data.id': exerciseId } },
       },
       { new: true, fullDocument: true }
     );
   }
 
   if (deleteWorkout) {
-    res.status(200).json({ message: 'Exercise Deleted' });
+    res.status(200).json(deleteWorkout);
   } else {
     res.status(400).json({ message: 'Unable to delete exercise' });
   }

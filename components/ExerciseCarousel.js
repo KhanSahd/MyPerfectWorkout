@@ -11,14 +11,25 @@ import axios from 'axios';
 
 const ExerciseCarousel = ({ shouldRandomize, meta }) => {
   const width = Dimensions.get('window').width;
+  const [random, setRandom] = useState([]);
 
   // Use useSelector outside of useMemo to get the selectedWorkout
   const selectedWorkout = useSelector((state) => state.selectedWorkout.selectedWorkout);
 
   // Memoize the random data so it doesn't change unless selectedWorkout changes
-  const random = useMemo(() => {
-    return [...selectedWorkout].sort(() => 0.5 - Math.random()).slice(0, 12);
-  }, [selectedWorkout]);
+  // const random = useMemo(() => {
+  //   return [...selectedWorkout].sort(() => 0.5 - Math.random()).slice(0, 12);
+  // }, [selectedWorkout]);
+
+  useEffect(() => {
+    let randomized = [...selectedWorkout].sort(() => 0.5 - Math.random()).slice(0, 12);
+    setRandom(randomized);
+  }, []);
+
+  const randomizeAgain = () => {
+    randomized = [...selectedWorkout].sort(() => 0.5 - Math.random()).slice(0, 12);
+    setRandom(randomized);
+  };
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -28,26 +39,17 @@ const ExerciseCarousel = ({ shouldRandomize, meta }) => {
     navigation.navigate('SaveExerciseMenu');
   };
 
-  // const { _id } = meta;
-
-  // const deleteExercise = async (item) => {
-  //   data = {
-  //     workoutId: _id,
-  //     exerciseId: item.id,
-  //   };
-  //   try {
-  //     const res = await axios.delete('http://localhost:8000/api/exercises', { data });
-  //     if (res.status(200)) {
-  //       Alert.alert('exercise deleted');
-  //     } else {
-  //       Alert.alert('Error deleting exercise. Status code: ' + res.status);
-  //     }
-  //   } catch (e) {
-  //     Alert.alert('Error When trying to delete', e);
-  //   }
-  // };
-
-  // console.log(selectedWorkout);
+  const deleteExercise = async (item) => {
+    const res = await axios.delete(
+      `http://localhost:8000/api/exercises?workoutId=${meta._id}&exerciseId=${item.id}`
+    );
+    if (res.status === 200) {
+      Alert.alert('Exercise deleted');
+      navigation.goBack();
+    } else {
+      Alert.alert('Error deleting exercise. Status code: ' + res.status);
+    }
+  };
 
   return (
     <View className="mt-10">
@@ -63,15 +65,18 @@ const ExerciseCarousel = ({ shouldRandomize, meta }) => {
         renderItem={({ item }) => (
           <View className="items-center h-full justify-center relative">
             {/* Delete Button */}
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                zIndex: '1000',
-                top: '2%',
-                right: '25%',
-              }}>
-              <TrashIcon />
-            </TouchableOpacity>
+            {meta ? (
+              <TouchableOpacity
+                onPress={() => deleteExercise(item)}
+                style={{
+                  position: 'absolute',
+                  zIndex: '1000',
+                  top: '2%',
+                  right: '25%',
+                }}>
+                <TrashIcon />
+              </TouchableOpacity>
+            ) : null}
 
             {/* Save Button */}
             <TouchableOpacity
@@ -110,6 +115,13 @@ const ExerciseCarousel = ({ shouldRandomize, meta }) => {
           </View>
         )}
       />
+      {meta ? null : (
+        <TouchableOpacity
+          className="absolute bottom-5 left-36 bg-indigo-600 p-5 rounded-full"
+          onPress={randomizeAgain}>
+          <Text className="text-white font-light">Generate Again</Text>
+        </TouchableOpacity>
+      )}
       <ArrowRightIcon
         size={20}
         color={'black'}

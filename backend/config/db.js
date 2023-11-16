@@ -28,7 +28,10 @@ const connectDB = async (io) => {
           });
           break;
         case 'delete':
-          io.emit('exerciseDeleted', next.documentKey._id);
+          const deletedDocumentId = next.documentKey._id;
+          const deletedDocument = await exercises.findOne({ _id: deletedDocumentId });
+          // const userId2 = deletedDocumentId.userId;
+          io.emit('exerciseDeleted');
           break;
         default:
           console.log('Something went wrong');

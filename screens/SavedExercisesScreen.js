@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Backbutton from '../components/Backbutton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native';
 import EditExerciseMenu from '../components/EditExerciseMenu';
 import { setSelectedSingleExercise } from '../features/exercises/singleExerciseSlice';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const SavedExercisesScreen = () => {
   const savedExercises = useSelector((state) => state.exercises.savedExercises);
@@ -23,6 +24,15 @@ const SavedExercisesScreen = () => {
   const handleEdit = (exercise) => {
     dispatch(setSelectedSingleExercise(exercise));
     navigation.navigate('EditExerciseMenu');
+  };
+
+  const deleteExercise = async (id) => {
+    const res = await axios.delete(`http://localhost:8000/api/exercises?workoutId=${id}`);
+    if (res.status === 200) {
+      Alert.alert('Exercise deleted');
+    } else {
+      Alert.alert('Error deleting exercise. Status code: ' + res.status);
+    }
   };
 
   return (
@@ -43,15 +53,7 @@ const SavedExercisesScreen = () => {
           {savedExercises.length > 0 ? (
             savedExercises.map((exercise, index) => {
               return (
-                <View key={index}>
-                  {/* <TouchableOpacity>
-                  <TrashIcon
-                    style={{ position: 'absolute', top: 0, right: 0, zIndex: 1000 }}
-                    size={20}
-                    color="white"
-                    stroke="black"
-                  />
-                </TouchableOpacity> */}
+                <View key={index} className="relative">
                   <CategoryButton
                     target={true}
                     text={exercise.name}
@@ -60,19 +62,30 @@ const SavedExercisesScreen = () => {
                     space
                   />
                   {showEditButton ? (
-                    <TouchableOpacity
-                      className="absolute right-0"
-                      onPress={() => {
-                        handleEdit(exercise);
-                      }}>
-                      <PencilSquareIcon size={20} color="black" />
-                    </TouchableOpacity>
+                    <>
+                      <TouchableOpacity
+                        className="absolute right-2 top-2"
+                        onPress={() => {
+                          handleEdit(exercise);
+                        }}>
+                        <PencilSquareIcon size={20} color="black" />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        className="absolute right-2 bottom-8"
+                        onPress={() => {
+                          deleteExercise(exercise._id);
+                        }}>
+                        <TrashIcon size={20} color="black" />
+                      </TouchableOpacity>
+                    </>
                   ) : null}
                 </View>
               );
             })
           ) : (
-            <Text className="text-[#00FFE7]">Save some workouts in order to see them here</Text>
+            <Text className="text-[#00FFE7] text-center mt-28 text-2xl font-bold">
+              Save some workouts in order to see them here
+            </Text>
           )}
         </ScrollView>
       </View>
