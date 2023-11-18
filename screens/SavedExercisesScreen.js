@@ -27,7 +27,7 @@ const SavedExercisesScreen = () => {
   };
 
   const deleteExercise = async (id) => {
-    const res = await axios.delete(`http://localhost:8000/api/exercises?workoutId=${id}`);
+    const res = await axios.delete(`http://10.0.0.132:8000/api/exercises?workoutId=${id}`);
     if (res.status === 200) {
       Alert.alert('Exercise deleted');
     } else {

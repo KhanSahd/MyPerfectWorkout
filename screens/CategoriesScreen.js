@@ -16,7 +16,7 @@ const Categories = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { exercises } = useSelector((state) => state.exercises);
-  const id = user._id;
+  const id = user ? user._id : null;
   const selectedWorkout = useSelector((state) => state.selectedWorkout.selectedWorkout);
 
   const onLogout = () => {
@@ -33,7 +33,7 @@ const Categories = () => {
   }, []);
 
   // Socket Connection
-  const socket = socketIOClient('http://localhost:8000');
+  const socket = socketIOClient('http://10.0.0.132:8000');
 
   const socketDispatch = useDispatch();
 

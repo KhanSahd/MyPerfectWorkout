@@ -34,7 +34,7 @@ export const fetchExercises = createAsyncThunk('exercises/fetchExercises', async
 export const fetchSavedExercises = createAsyncThunk(
   'exercises/fetchedSavedExercises',
   async (id) => {
-    const response = await fetch(`http://localhost:8000/api/exercises?id=${id}`, {
+    const response = await fetch(`http://10.0.0.132:8000/api/exercises?id=${id}`, {
       headers: {
         'X-RapidAPI-Key': XRAPIDAPIKEY,
         'X-RapidAPI-Host': XRAPIDAPIHOST,
@@ -48,7 +48,7 @@ export const fetchSavedExercises = createAsyncThunk(
 export const deleteExercise = createAsyncThunk(
   'exercises/deleteExercise',
   async (exerciseId, workoutId) => {
-    const response = await fetch(`http://localhost:8000/api/exercises`, {
+    const response = await fetch(`http://10.0.0.132:8000/api/exercises`, {
       method: 'DELETE',
       body: JSON.stringify({ exerciseId, workoutId }),
     });
