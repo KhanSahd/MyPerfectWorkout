@@ -22,7 +22,7 @@ const SaveExerciseForm = ({ setShowForm }) => {
     };
 
     try {
-      const res = await axios.post('http://localhost:8000/api/exercises', data);
+      const res = await axios.post('http://10.0.0.132:8000/api/exercises', data);
       alert('Exercise Saved!');
       setExerciseName('');
       setShowForm(false);

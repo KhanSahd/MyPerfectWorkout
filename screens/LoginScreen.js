@@ -9,7 +9,6 @@ const LoginScreen = () => {
   // Navigation and dispatch objects
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const apiLink = 'http://localhost:8000/api/users/login';
 
   // Form data states
   const [email, setEmail] = useState('');
@@ -25,7 +24,7 @@ const LoginScreen = () => {
     dispatch(reset());
 
     if (isError) {
-      Alert.alert('Invalid Credentials', errorMessage);
+      Alert.alert('Error logging in', errorMessage);
     }
   }, [user, isError, isSuccess, errorMessage, navigation, dispatch]);
 
