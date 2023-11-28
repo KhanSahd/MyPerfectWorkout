@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "engine": {
-    "node": "16.13.1"
+    "node": "16.13.1",
+    "npm": "8.7.0"
   },
   "scripts": {
     "start": "expo start",
