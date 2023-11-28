@@ -19,7 +19,7 @@ const EditExerciseMenu = () => {
       workoutId: selectedSingleExercise._id,
     };
     try {
-      const res = await axios.put('http://10.0.0.132:8000/api/exercises', data);
+      const res = await axios.put('https://myperfectworkoutapi.onrender.com/api/exercises', data);
       if (res.status === 201) {
         Alert.alert('Workout Updated!');
         navigation.goBack();

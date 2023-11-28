@@ -41,7 +41,7 @@ const ExerciseCarousel = ({ shouldRandomize, meta }) => {
 
   const deleteExercise = async (item) => {
     const res = await axios.delete(
-      `http://10.0.0.132:8000/api/exercises?workoutId=${meta._id}&exerciseId=${item.id}`
+      `https://myperfectworkoutapi.onrender.com/api/exercises?workoutId=${meta._id}&exerciseId=${item.id}`
     );
     if (res.status === 200) {
       Alert.alert('Exercise deleted');

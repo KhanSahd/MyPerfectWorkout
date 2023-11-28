@@ -37,7 +37,7 @@ const SaveExerciseMenu = () => {
 
   const addToSavedWorkout = async (exercise) => {
     try {
-      const res = await axios.put('http://10.0.0.132:8000/api/exercises', {
+      const res = await axios.put('https://myperfectworkoutapi.onrender.com/api/exercises', {
         workoutId: exercise._id,
         data: selectedSingleExercise.selectedSingleExercise,
       });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = `http://10.0.0.132:8000/api/users/`;
+const API_URL = `https://myperfectworkoutapi.onrender.com/api/users/`;
 
 //Register user
 const register = async (user) => {

@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'http://10.0.0.132:8000',
+    origin: 'https://myperfectworkoutapi.onrender.com/',
   },
 });
 

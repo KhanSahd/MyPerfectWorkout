@@ -33,7 +33,7 @@ const Categories = () => {
   }, []);
 
   // Socket Connection
-  const socket = socketIOClient('http://10.0.0.132:8000');
+  const socket = socketIOClient('https://myperfectworkoutapi.onrender.com/');
 
   const socketDispatch = useDispatch();
 
