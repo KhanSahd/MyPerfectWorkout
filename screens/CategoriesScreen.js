@@ -52,11 +52,7 @@ const Categories = () => {
       socketDispatch(fetchSavedExercises(id));
     });
     socket.on('userUpdated', (updatedUser) => {
-      // Check if the updated user ID matches the logged-in user's ID
-      if (updatedUser.user === user._id) {
-        // Dispatch an action to update the user details in the Redux store
-        dispatch(updateUser(updatedUser.user));
-      }
+      socketDispatch(updateUser(updatedUser.user));
     });
     return () => {
       socket.disconnect();

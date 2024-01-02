@@ -4,11 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import authSlice, { checkForStoredUser, setUser } from '../features/auth/authSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user ? user._id : null;
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -29,6 +31,7 @@ const ProfileScreen = () => {
     }
     if (res.status == 200) {
       Alert.alert('Profile successfully updated');
+      navigation.goBack();
       // await AsyncStorage.setItem('user', JSON.stringify(res.data));
     } else {
       Alert.alert('Error updating profile');
