@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import authSlice, { checkForStoredUser, setUser } from '../features/auth/authSlice';
 
 const ProfileScreen = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,15 +25,13 @@ const ProfileScreen = () => {
     });
     if (newPassword !== confirm) {
       Alert.alert('passwords do not match');
-      console.log(res.data);
       return;
     }
     if (res.status == 200) {
       Alert.alert('Profile successfully updated');
       await AsyncStorage.setItem('user', JSON.stringify(res.data));
     } else {
-      console.log(res.status);
-      console.log(res.data);
+      Alert.alert('Error updating profile');
     }
   };
 

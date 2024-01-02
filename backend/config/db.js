@@ -43,10 +43,10 @@ const connectDB = async (io) => {
     userChangeStream.on('change', async (next) => {
       switch (next.operationType) {
         case 'update':
-          const updatedDocumentId = next.documentKey._id;
+          // const updatedDocumentId = next.documentKey._id;
           const updatedDocument = await users.findOne({ _id: updatedDocumentId });
           io.emit('userUpdated', {
-            user: updatedDocumentId,
+            user: updatedDocument,
             updatedFields: next.updateDescription.updatedFields,
           });
           break;
