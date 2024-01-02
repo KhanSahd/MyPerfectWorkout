@@ -7,6 +7,8 @@ const connectDB = async (io) => {
 
     const exercises = conn.connection.db.collection('savedexercises');
     changeStream = exercises.watch();
+    const users = conn.connection.db.collection('users');
+    userChangeStream = users.watch();
 
     changeStream.on('change', async (next) => {
       switch (next.operationType) {
@@ -32,6 +34,21 @@ const connectDB = async (io) => {
           const deletedDocument = await exercises.findOne({ _id: deletedDocumentId });
           // const userId2 = deletedDocumentId.userId;
           io.emit('exerciseDeleted');
+          break;
+        default:
+          console.log('Something went wrong');
+      }
+    });
+
+    userChangeStream.on('change', async (next) => {
+      switch (next.operationType) {
+        case 'update':
+          const updatedDocumentId = next.documentKey._id;
+          const updatedDocument = await users.findOne({ _id: updatedDocumentId });
+          io.emit('userUpdated', {
+            user: updatedDocumentId,
+            updatedFields: next.updateDescription.updatedFields,
+          });
           break;
         default:
           console.log('Something went wrong');

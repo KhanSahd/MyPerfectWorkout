@@ -51,6 +51,9 @@ const Categories = () => {
     socket.on('exerciseDeleted', (exercise) => {
       socketDispatch(fetchSavedExercises(id));
     });
+    socket.on('userUpdated', (updatedUser) => {
+      console.log(updatedUser);
+    });
     return () => {
       socket.disconnect();
     };

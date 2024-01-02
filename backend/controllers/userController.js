@@ -110,13 +110,23 @@ const updateUser = asyncHandler(async (req, res) => {
           $currentDate: { lastModified: true },
         }
       ).exec();
-      res.status(200).json({ message: 'User Updated' });
+      res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: updatedUser(user._id),
+      });
     } else {
       updatedUser = await User.updateOne(
         { _id: user },
         { $set: { name: name, email: email }, $currentDate: { lastModified: true } }
       ).exec();
-      res.status(200).json({ message: 'User Updated' });
+      res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: generateToken(updatedUser._id),
+      });
     }
   }
   if (user && !(await bcrypt.compare(password, user.password))) {

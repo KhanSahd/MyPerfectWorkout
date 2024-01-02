@@ -1,12 +1,13 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 const ProfileScreen = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user ? user._id : null;
+  const dispatch = useDispatch();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -28,6 +29,7 @@ const ProfileScreen = () => {
     }
     if (res.status == 200) {
       Alert.alert('Profile successfully updated');
+      await AsyncStorage.setItem('user', JSON.stringify(res.data));
     } else {
       console.log(res.status);
       console.log(res.data);
