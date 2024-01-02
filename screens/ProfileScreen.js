@@ -7,7 +7,6 @@ import axios from 'axios';
 const ProfileScreen = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user ? user._id : null;
-  console.log(id);
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);

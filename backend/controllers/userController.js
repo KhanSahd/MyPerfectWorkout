@@ -103,13 +103,19 @@ const updateUser = asyncHandler(async (req, res) => {
     if (newPassword.length > 0) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
-      updatedUser = User.updateOne(
+      updatedUser = await User.updateOne(
         { _id: id },
-        { $set: { name: name, email: email, password: hashedPassword } }
-      );
+        {
+          $set: { name: name, email: email, password: hashedPassword },
+          $currentDate: { lastModified: true },
+        }
+      ).exec();
       res.status(200).json({ message: 'User Updated' });
     } else {
-      updatedUser = User.updateOne({ _id: user }, { $set: { name: name, email: email } });
+      updatedUser = await User.updateOne(
+        { _id: user },
+        { $set: { name: name, email: email }, $currentDate: { lastModified: true } }
+      ).exec();
       res.status(200).json({ message: 'User Updated' });
     }
   }
