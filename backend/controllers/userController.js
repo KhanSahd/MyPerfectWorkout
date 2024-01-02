@@ -1,7 +1,7 @@
-const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../models/userModel");
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const User = require('../models/userModel');
 
 // @desc    Get all users
 // @route   GET /api/users
@@ -18,13 +18,13 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body; // Destructuring the req.body object
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("Please fill in all fields");
+    throw new Error('Please fill in all fields');
   }
   // check if user exists
   const userExist = await User.findOne({ email });
   if (userExist) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error('User already exists');
   }
 
   // Hash the password
@@ -47,7 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Invalid user data");
+    throw new Error('Invalid user data');
   }
 });
 
@@ -68,7 +68,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400); // Set the status to 400
-    throw new Error("Invalid credentials"); // Throw an error
+    throw new Error('Invalid credentials'); // Throw an error
   }
 });
 
@@ -79,10 +79,43 @@ const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id); // Find the user by id
   if (!user) {
     res.status(404);
-    throw new Error("User not found");
+    throw new Error('User not found');
   }
   await User.findByIdAndDelete(req.params.id); // Delete the user
-  res.status(200).json({ message: "User removed" });
+  res.status(200).json({ message: 'User removed' });
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  const { id } = req.query;
+  const { name, email, password, newPassword } = req.body;
+  const user = await User.findById(id);
+  let updatedUser;
+  if (!user) {
+    res.status(400);
+    throw new Error('User not found');
+  }
+
+  if (!password.length > 0) {
+    res.status(400);
+    throw new Error('Password not provided');
+  }
+  if (user && (await bcrypt.compare(password, user.password))) {
+    if (newPassword.length > 0) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      updatedUser = User.updateOne(
+        { _id: id },
+        { $set: { name: name, email: email, password: hashedPassword } }
+      );
+      res.status(200).json({ message: 'User Updated' });
+    } else {
+      updatedUser = User.updateOne({ _id: user }, { $set: { name: name, email: email } });
+      res.status(200).json({ message: 'User Updated' });
+    }
+  }
+  if (user && !(await bcrypt.compare(password, user.password))) {
+    res.status(400).json({ message: 'Password is incorrect' });
+  }
 });
 
 // @desc    Get user data
@@ -101,7 +134,7 @@ const getMe = asyncHandler(async (req, res) => {
 // Generate a token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: '30d',
   });
 };
 
@@ -112,4 +145,5 @@ module.exports = {
   getMe,
   generateToken,
   deleteUser,
+  updateUser,
 };
