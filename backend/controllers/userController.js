@@ -111,10 +111,10 @@ const updateUser = asyncHandler(async (req, res) => {
         }
       ).exec();
       res.status(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        token: updatedUser(user._id),
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: generateToken(user._id),
       });
     } else {
       updatedUser = await User.updateOne(
@@ -122,10 +122,10 @@ const updateUser = asyncHandler(async (req, res) => {
         { $set: { name: name, email: email }, $currentDate: { lastModified: true } }
       ).exec();
       res.status(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        token: generateToken(updatedUser._id),
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: generateToken(user._id),
       });
     }
   }
