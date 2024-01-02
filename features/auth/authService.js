@@ -36,10 +36,21 @@ const logout = async () => {
   };
 };
 
+const update = async (user) => {
+  await AsyncStorage.removeItem('user');
+  await AsyncStorage.setItem('user', JSON.stringify(user));
+
+  return {
+    type: 'auth/update',
+    payload: user,
+  };
+};
+
 const authService = {
   register,
   login,
   logout,
+  update,
 };
 
 export default authService;

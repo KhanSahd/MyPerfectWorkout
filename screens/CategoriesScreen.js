@@ -4,7 +4,7 @@ import CategoryButton from '../components/CategoryButton';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
 import { useSelector, useDispatch } from 'react-redux';
 import { add, fetchExercises, fetchSavedExercises } from '../features/exercises/exercisesSlice';
-import { checkForStoredUser, logout, reset, setUser } from '../features/auth/authSlice';
+import { checkForStoredUser, logout, reset, updateUser } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import socketIOClient from 'socket.io-client';
 import { Bars3Icon } from 'react-native-heroicons/solid';
@@ -53,10 +53,9 @@ const Categories = () => {
     });
     socket.on('userUpdated', (updatedUser) => {
       // Check if the updated user ID matches the logged-in user's ID
-      console.log(updatedUser);
       if (updatedUser.user === user._id) {
         // Dispatch an action to update the user details in the Redux store
-        dispatch(checkForStoredUser());
+        dispatch(updateUser(updatedUser.user));
       }
     });
     return () => {

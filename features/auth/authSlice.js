@@ -41,6 +41,18 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout();
 });
 
+export const updateUser = createAsyncThunk('auth/updateUser', async (user, thunkAPI) => {
+  try {
+    await authService.update(user);
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 // Function to check if a user is already logged in during app startup
 export const checkForStoredUser = createAsyncThunk(
   'auth/checkForStoredUser',
@@ -102,6 +114,19 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

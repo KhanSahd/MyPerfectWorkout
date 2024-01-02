@@ -29,7 +29,7 @@ const ProfileScreen = () => {
     }
     if (res.status == 200) {
       Alert.alert('Profile successfully updated');
-      await AsyncStorage.setItem('user', JSON.stringify(res.data));
+      // await AsyncStorage.setItem('user', JSON.stringify(res.data));
     } else {
       Alert.alert('Error updating profile');
     }
