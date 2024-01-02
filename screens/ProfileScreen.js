@@ -31,8 +31,9 @@ const ProfileScreen = () => {
     }
     if (res.status == 200) {
       Alert.alert('Profile successfully updated');
-      navigation.goBack();
-      // await AsyncStorage.setItem('user', JSON.stringify(res.data));
+      console.log('in update func', res.data);
+      navigation.navigate('Category Page');
+      await AsyncStorage.setItem('user', JSON.stringify(res.data));
     } else {
       Alert.alert('Error updating profile');
     }

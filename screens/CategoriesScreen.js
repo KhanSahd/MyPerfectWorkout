@@ -53,6 +53,8 @@ const Categories = () => {
     });
     socket.on('userUpdated', (updatedUser) => {
       socketDispatch(updateUser(updatedUser.user));
+      console.log('user after socket dispatched', user);
+      // socketDispatch(checkForStoredUser());
     });
     return () => {
       socket.disconnect();
