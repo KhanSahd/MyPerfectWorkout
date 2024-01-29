@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "workoutapp",
-    "slug": "workoutapp",
+    "name": "MyPerfectWorkout",
+    "slug": "MyPerfectWorkout",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.khansahd.MyPerfectWorkout"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2d96238e-1a89-44d7-a1b0-8807125005b0"
+      }
     }
   }
 }
