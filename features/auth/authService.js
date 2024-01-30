@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const API_URL = `https://myperfectworkoutapi.onrender.com/api/users/`;
 
@@ -8,7 +8,7 @@ const register = async (user) => {
   const response = await axios.post(API_URL, user);
 
   if (response.data) {
-    await AsyncStorage.setItem('user', JSON.stringify(response.data));
+    await SecureStore.setItemAsync('user', JSON.stringify(response.data));
   }
 
   return response.data;
@@ -19,7 +19,7 @@ const login = async (user) => {
   const response = await axios.post(API_URL + 'login', user);
 
   if (response) {
-    await AsyncStorage.setItem('user', JSON.stringify(response.data));
+    await SecureStore.setItemAsync('user', JSON.stringify(response.data));
   } else {
     return response.data;
   }
@@ -29,7 +29,7 @@ const login = async (user) => {
 
 //Logout user
 const logout = async () => {
-  await AsyncStorage.removeItem('user');
+  await SecureStore.deleteItemAsync('user');
 
   return {
     type: 'auth/logout',
@@ -37,8 +37,8 @@ const logout = async () => {
 };
 
 const update = async (user) => {
-  await AsyncStorage.removeItem('user');
-  await AsyncStorage.setItem('user', JSON.stringify(user));
+  await SecureStore.deleteItemAsync('user');
+  await SecureStore.setItemAsync('user', JSON.stringify(user));
 
   return {
     type: 'auth/update',

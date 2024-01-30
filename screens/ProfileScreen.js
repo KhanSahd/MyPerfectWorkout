@@ -1,10 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import authSlice, { checkForStoredUser, setUser } from '../features/auth/authSlice';
 import { useNavigation } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 const ProfileScreen = () => {
   const { user } = useSelector((state) => state.auth);
@@ -33,7 +33,7 @@ const ProfileScreen = () => {
       Alert.alert('Profile successfully updated');
       console.log('in update func', res.data);
       navigation.navigate('Category Page');
-      await AsyncStorage.setItem('user', JSON.stringify(res.data));
+      await SecureStore.setItemAsync('user', JSON.stringify(res.data));
     } else {
       Alert.alert('Error updating profile');
     }

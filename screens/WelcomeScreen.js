@@ -1,7 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkForStoredUser, reset } from '../features/auth/authSlice';
 

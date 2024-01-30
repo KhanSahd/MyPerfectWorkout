@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const initialState = {
   user: null,
@@ -58,7 +58,7 @@ export const checkForStoredUser = createAsyncThunk(
   'auth/checkForStoredUser',
   async (_, thunkAPI) => {
     try {
-      const storedUser = await AsyncStorage.getItem('user');
+      const storedUser = await SecureStore.getItemAsync('user');
       if (storedUser) {
         thunkAPI.dispatch(authSlice.actions.setUser(JSON.parse(storedUser)));
       }

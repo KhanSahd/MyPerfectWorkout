@@ -1,7 +1,6 @@
-import { View, Text, Button, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Button, TouchableOpacity, Alert, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
