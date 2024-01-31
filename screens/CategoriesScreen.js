@@ -29,6 +29,10 @@ const Categories = () => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
     }
+    console.log('exercises', exercises);
+  }, [dispatch, exercises]);
+
+  useEffect(() => {
     dispatch(fetchSavedExercises(id));
   }, []);
 

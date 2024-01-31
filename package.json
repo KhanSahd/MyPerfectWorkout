@@ -1,6 +1,6 @@
 {
   "name": "workoutapp",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "main": "node_modules/expo/AppEntry.js",
   "engines": {
     "node": "20.11.0",
@@ -27,6 +27,7 @@
     "expo": "^50.0.4",
     "expo-secure-store": "^12.8.1",
     "expo-status-bar": "^1.11.1",
+    "expo-updates": "~0.24.9",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",

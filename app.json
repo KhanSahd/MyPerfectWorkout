@@ -2,7 +2,7 @@
   "expo": {
     "name": "MyPerfectWorkout",
     "slug": "MyPerfectWorkout",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.khansahd.MyPerfectWorkout"
+      "bundleIdentifier": "com.khansahd.MyPerfectWorkout",
+      "buildNumber": "4"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,6 +32,12 @@
       "eas": {
         "projectId": "2d96238e-1a89-44d7-a1b0-8807125005b0"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2d96238e-1a89-44d7-a1b0-8807125005b0"
     }
   }
 }
