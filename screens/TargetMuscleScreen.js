@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import Backbutton from '../components/Backbutton';
 import { useSelector } from 'react-redux';
@@ -15,16 +15,23 @@ const TargetMuscleScreen = () => {
       {/* <Text className="text-center text-2xl mt-10 text-white font-bold">Target Muscles</Text> */}
       <View className="mt-12">
         <ScrollView>
-          {targetMuscles.map((muscle) => (
-            <CategoryButton
-              key={muscle}
-              text={muscle}
-              category={'target'}
-              target={true}
-              color="#DF2935"
-              space
-            />
-          ))}
+          {targetMuscles.length == 0 ? (
+            <View className="flex-1 flex-col justify-center items-center">
+              <ActivityIndicator size="large" color="#F02D3A" />
+              <Text className="text-2xl mt-4">Loading...</Text>
+            </View>
+          ) : (
+            targetMuscles.map((muscle) => (
+              <CategoryButton
+                key={muscle}
+                text={muscle}
+                category={'target'}
+                target={true}
+                color="#DF2935"
+                space
+              />
+            ))
+          )}
         </ScrollView>
       </View>
     </SafeAreaView>

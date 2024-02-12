@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect, useMemo, useState } from 'react';
 import CategoryButton from '../components/CategoryButton';
 import { XRAPIDAPIKEY, XRAPIDAPIHOST } from '@env';
@@ -33,8 +33,10 @@ const Categories = () => {
   }, [dispatch, exercises]);
 
   useEffect(() => {
-    dispatch(fetchSavedExercises(id));
-  }, []);
+    if (user) {
+      dispatch(fetchSavedExercises(id));
+    }
+  }, [user, id, dispatch]);
 
   // Socket Connection
   const socket = socketIOClient('https://myperfectworkoutapi.onrender.com/');
@@ -70,23 +72,32 @@ const Categories = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="py-6 flex-row-reverse items-center justify-between">
-        <TouchableOpacity onPress={() => navigation.navigate('HamburgerMenu')} className="mr-4">
-          {/* <Text className="text-black text-xl mr-4">Logout</Text> */}
-          <Bars3Icon size={30} color={'black'} />
-        </TouchableOpacity>
-        <Text className="text-3xl text-black font-light flex-1 ml-4">
-          {/* Welcome {user.name}, Pick a category to find a workout */}
-          Categories
-        </Text>
-      </View>
-      <View className="flex-1 flex-col justify-evenly w-full items-center">
-        <CategoryButton text="Body Part" page="BodyParts" color="#623CEA" />
-        <CategoryButton text="Target Muscles" page="Target Muscles" color="#DF2935" />
-        <CategoryButton text="Equipment" page="Equipment" color="#FD5200" />
-        <CategoryButton text="My Saved Workouts" page="Saved Exercises" color="#00FFE7" />
-        <CategoryButton text="Random" category="random" color="#F00699" />
-      </View>
+      {exercises.length == 0 ? (
+        <View className="flex-1 flex-col justify-center items-center">
+          <ActivityIndicator size="large" color="#F02D3A" />
+          <Text className="text-2xl mt-4">Loading...</Text>
+        </View>
+      ) : (
+        <>
+          <View className="py-6 flex-row-reverse items-center justify-between">
+            <TouchableOpacity onPress={() => navigation.navigate('HamburgerMenu')} className="mr-4">
+              {/* <Text className="text-black text-xl mr-4">Logout</Text> */}
+              <Bars3Icon size={30} color={'black'} />
+            </TouchableOpacity>
+            <Text className="text-3xl text-black font-light flex-1 ml-4">
+              {/* Welcome {user.name}, Pick a category to find a workout */}
+              Categories
+            </Text>
+          </View>
+          <View className="flex-1 flex-col justify-evenly w-full items-center">
+            <CategoryButton text="Body Part" page="BodyParts" color="#623CEA" />
+            <CategoryButton text="Target Muscles" page="Target Muscles" color="#DF2935" />
+            <CategoryButton text="Equipment" page="Equipment" color="#FD5200" />
+            <CategoryButton text="My Saved Workouts" page="Saved Exercises" color="#00FFE7" />
+            <CategoryButton text="Random" category="random" color="#F00699" />
+          </View>
+        </>
+      )}
     </SafeAreaView>
   );
 };

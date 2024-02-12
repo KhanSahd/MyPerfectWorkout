@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import CategoryButton from '../components/CategoryButton';
 import { useSelector } from 'react-redux';
@@ -14,11 +14,24 @@ const EquipmentScreen = () => {
       <Backbutton color="black" />
       {/* <Text className="text-center text-2xl mt-10 text-black font-bold">Equipment</Text> */}
       <View className="mt-12">
-        <ScrollView>
-          {equipment.map((equip) => (
-            <CategoryButton key={equip} text={equip} category={'equipment'} color="#FD5200" space />
-          ))}
-        </ScrollView>
+        {equipment.length == 0 ? (
+          <View className="flex-1 flex-col justify-center items-center">
+            <ActivityIndicator size="large" color="#F02D3A" />
+            <Text className="text-2xl mt-4">Loading...</Text>
+          </View>
+        ) : (
+          <ScrollView>
+            {equipment.map((equip) => (
+              <CategoryButton
+                key={equip}
+                text={equip}
+                category={'equipment'}
+                color="#FD5200"
+                space
+              />
+            ))}
+          </ScrollView>
+        )}
       </View>
     </SafeAreaView>
   );

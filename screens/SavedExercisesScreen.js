@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Backbutton from '../components/Backbutton';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryButton from '../components/CategoryButton';
-import { addToSaved } from '../features/exercises/exercisesSlice';
+import { addToSaved, fetchSavedExercises } from '../features/exercises/exercisesSlice';
 import { TrashIcon, PencilSquareIcon } from 'react-native-heroicons/mini';
 import { TouchableOpacity } from 'react-native';
 import EditExerciseMenu from '../components/EditExerciseMenu';
@@ -14,6 +14,8 @@ import axios from 'axios';
 const SavedExercisesScreen = () => {
   const savedExercises = useSelector((state) => state.exercises.savedExercises);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const id = user ? user._id : null;
   const navigation = useNavigation();
   const [showEditButton, setShowEditButton] = useState(false);
   const [showEditMenu, setShowEditMenu] = useState(false);
@@ -37,18 +39,29 @@ const SavedExercisesScreen = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchSavedExercises(id));
+  }, []);
+
   return (
     <SafeAreaView className="flex-1 bg-white items-center">
       <Backbutton color="black" />
-      {/* Edit Button */}
-
       <View className="flex-row relative items-center justify-center w-full">
         <Text className="text-center text-2xl mt-10 text-black font-light">Saved Workouts</Text>
-        <TouchableOpacity
-          className="absolute right-6 bottom-2"
-          onPress={() => setShowEditButton(!showEditButton)}>
-          <Text className="text-black">Edit</Text>
-        </TouchableOpacity>
+
+        {!showEditButton ? (
+          <TouchableOpacity
+            className="absolute right-6 bottom-2"
+            onPress={() => setShowEditButton(!showEditButton)}>
+            <Text className="text-black">Edit</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            className="absolute right-6 bottom-2"
+            onPress={() => setShowEditButton(!showEditButton)}>
+            <Text className="text-black">Done</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View className="mt-12">
         <ScrollView>
