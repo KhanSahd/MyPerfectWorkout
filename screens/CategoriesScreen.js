@@ -19,6 +19,10 @@ const Categories = () => {
   const id = user ? user._id : null;
   const selectedWorkout = useSelector((state) => state.selectedWorkout.selectedWorkout);
 
+  useEffect(() => {
+    dispatch(checkForStoredUser());
+  }, []);
+
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());

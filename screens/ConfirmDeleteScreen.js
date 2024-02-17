@@ -1,20 +1,23 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { logout, reset } from '../features/auth/authSlice';
 
 const ConfirmDeleteScreen = () => {
   const { user } = useSelector((state) => state.auth);
   const id = user ? user._id : null;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleDelete = async () => {
     const res = await axios.delete(`https://myperfectworkoutapi.onrender.com/api/users?id=${id}`);
     if (res.status == 200) {
       Alert.alert('Profile successfully deleted');
       navigation.navigate('Category Page');
-      await SecureStore.deleteItemAsync('user');
+      dispatch(logout());
+      dispatch(reset());
     } else {
       Alert.alert('Error deleting profile');
     }
