@@ -17,6 +17,7 @@ const ProfileScreen = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [showDeleteMenu, setShowDeleteMenu] = useState(false);
 
   const handleUpdate = async () => {
     const res = await axios.put(`https://myperfectworkoutapi.onrender.com/api/users?id=${id}`, {
@@ -36,6 +37,17 @@ const ProfileScreen = () => {
       await SecureStore.setItemAsync('user', JSON.stringify(res.data));
     } else {
       Alert.alert('Error updating profile');
+    }
+  };
+
+  const handleDelete = async () => {
+    const res = await axios.delete(`https://myperfectworkoutapi.onrender.com/api/users?id=${id}`);
+    if (res.status == 200) {
+      Alert.alert('Profile successfully deleted');
+      navigation.navigate('Login');
+      await SecureStore.deleteItemAsync('user');
+    } else {
+      Alert.alert('Error deleting profile');
     }
   };
 
@@ -77,6 +89,9 @@ const ProfileScreen = () => {
           <Text className="text-xl text-center text-white">Update Profile</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity className="pb-9" onPress={() => navigation.navigate('ConfirmDelete')}>
+        <Text className="text-xl text-center">Delete Account</Text>
+      </TouchableOpacity>
     </View>
   );
 };

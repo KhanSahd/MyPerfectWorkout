@@ -29,7 +29,6 @@ const Categories = () => {
     if (exercises.length === 0) {
       dispatch(fetchExercises());
     }
-    console.log('exercises', exercises);
   }, [dispatch, exercises]);
 
   useEffect(() => {
@@ -93,7 +92,9 @@ const Categories = () => {
             <CategoryButton text="Body Part" page="BodyParts" color="#623CEA" />
             <CategoryButton text="Target Muscles" page="Target Muscles" color="#DF2935" />
             <CategoryButton text="Equipment" page="Equipment" color="#FD5200" />
-            <CategoryButton text="My Saved Workouts" page="Saved Exercises" color="#00FFE7" />
+            {user && (
+              <CategoryButton text="My Saved Workouts" page="Saved Exercises" color="#00FFE7" />
+            )}
             <CategoryButton text="Random" category="random" color="#F00699" />
           </View>
         </>

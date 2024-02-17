@@ -16,6 +16,7 @@ import EditExerciseMenu from './components/EditExerciseMenu';
 import Header from './components/Header';
 import HamburgerMenu from './screens/HamburgerMenu';
 import ProfileScreen from './screens/ProfileScreen';
+import ConfirmDeleteScreen from './screens/ConfirmDeleteScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -24,13 +25,13 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+          {/* <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} /> */}
           <Stack.Screen
             options={{ headerShown: false }}
             name="Category Page"
             component={CategoriesScreen}
           />
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
           <Stack.Screen
             options={{ headerShown: false }}
             name="Exercise Screen"
@@ -80,6 +81,11 @@ export default function App() {
             options={{ headerShown: false, presentation: 'modal' }}
             name="Profile"
             component={ProfileScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, presentation: 'modal' }}
+            name="ConfirmDelete"
+            component={ConfirmDeleteScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

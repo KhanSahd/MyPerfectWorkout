@@ -10,6 +10,7 @@ import { setSelectedSingleExercise } from '../features/exercises/singleExerciseS
 import axios from 'axios';
 
 const ExerciseCarousel = ({ shouldRandomize, meta }) => {
+  const { user } = useSelector((state) => state.auth);
   const width = Dimensions.get('window').width;
   const [random, setRandom] = useState([]);
 
@@ -35,6 +36,10 @@ const ExerciseCarousel = ({ shouldRandomize, meta }) => {
   const dispatch = useDispatch();
 
   const onPress = (item) => {
+    if (!user) {
+      Alert.alert('You must be logged in to save exercises');
+      return;
+    }
     dispatch(setSelectedSingleExercise(item));
     navigation.navigate('SaveExerciseMenu');
   };
