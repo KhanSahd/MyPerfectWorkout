@@ -21,7 +21,7 @@ const initialState = {
 
 // Async Thunk
 export const fetchExercises = createAsyncThunk('exercises/fetchExercises', async () => {
-  const response = await fetch('https://exercisedb.p.rapidapi.com/exercises', {
+  const response = await fetch('https://exercisedb.p.rapidapi.com/exercises?limit=2000', {
     headers: {
       'X-RapidAPI-Key': XRAPIDAPIKEY,
       'X-RapidAPI-Host': XRAPIDAPIHOST,
