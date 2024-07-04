@@ -9,22 +9,25 @@
       "distribution": "internal",
       "env": {
         "XRAPIDAPIKEY": "db99d8ec11msh20c3f501e2ca248p1d8e52jsn51ccc0ee9154",
-        "XRAPIDAPIHOST" : "exercisedb.p.rapidapi.com",
-        "MONGO_URI" : "mongodb+srv://sahdkhan:8929Rcpj@sahdcluster.x8hkndj.mongodb.net/MyPerfectWorkout?retryWrites=true&w=majority",
-        "JWT_SECRET" : "celtics2024"
-      }
+        "XRAPIDAPIHOST": "exercisedb.p.rapidapi.com",
+        "MONGO_URI": "mongodb+srv://sahdkhan:8929Rcpj@sahdcluster.x8hkndj.mongodb.net/MyPerfectWorkout?retryWrites=true&w=majority",
+        "JWT_SECRET": "celtics2024"
+      },
+      "channel": "development"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "preview"
     },
     "production": {
       "node": "20.11.0",
       "env": {
         "XRAPIDAPIKEY": "db99d8ec11msh20c3f501e2ca248p1d8e52jsn51ccc0ee9154",
-        "XRAPIDAPIHOST" : "exercisedb.p.rapidapi.com",
-        "MONGO_URI" : "mongodb+srv://sahdkhan:8929Rcpj@sahdcluster.x8hkndj.mongodb.net/MyPerfectWorkout?retryWrites=true&w=majority",
-        "JWT_SECRET" : "celtics2024"
-      }
+        "XRAPIDAPIHOST": "exercisedb.p.rapidapi.com",
+        "MONGO_URI": "mongodb+srv://sahdkhan:8929Rcpj@sahdcluster.x8hkndj.mongodb.net/MyPerfectWorkout?retryWrites=true&w=majority",
+        "JWT_SECRET": "celtics2024"
+      },
+      "channel": "production"
     }
   },
   "submit": {
